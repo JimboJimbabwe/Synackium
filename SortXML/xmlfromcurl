@@ -1,0 +1,85 @@
+import xml.etree.ElementTree as ET
+import base64
+import tkinter as tk
+from tkinter import filedialog
+import urllib.parse
+
+def base64_decode(encoded_string):
+    return base64.b64decode(encoded_string).decode('utf-8', errors='ignore')
+
+def parse_xml_to_curl(xml_file):
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+    
+    curl_commands = []
+    
+    for item in root.findall('item'):
+        url = item.find('url').text
+        method = item.find('method').text
+        request_element = item.find('request')
+        
+        if request_element is None or request_element.text is None:
+            print(f"Skipping item with URL {url} due to missing request data")
+            continue
+        
+        if request_element.get('base64') == 'true':
+            request = base64_decode(request_element.text)
+        else:
+            request = request_element.text
+        
+        headers = {}
+        body = ""
+        
+        # Parse the request to extract headers and body
+        request_lines = request.split('\n')
+        blank_line_index = next((i for i, line in enumerate(request_lines) if line.strip() == ''), -1)
+        
+        if blank_line_index == -1:
+            header_lines = request_lines[1:]  # Assume all lines are headers if no blank line
+        else:
+            header_lines = request_lines[1:blank_line_index]
+            body = '\n'.join(request_lines[blank_line_index + 1:])
+        
+        for header in header_lines:
+            if ':' in header:
+                key, value = header.split(':', 1)
+                headers[key.strip()] = value.strip()
+        
+        # Construct the curl command
+        curl_command = f"curl -X {method} '{url}'"
+        
+        for key, value in headers.items():
+            curl_command += f" -H '{key}: {value}'"
+        
+        if body:
+            curl_command += f" -d '{urllib.parse.quote(body)}'"
+        
+        curl_commands.append(curl_command)
+    
+    return curl_commands
+
+def select_file():
+    root = tk.Tk()
+    root.withdraw()
+    file_path = filedialog.askopenfilename(filetypes=[("XML files", "*.xml")])
+    return file_path
+
+def main():
+    xml_file = select_file()
+    if not xml_file:
+        print("No file selected. Exiting.")
+        return
+    
+    try:
+        curl_commands = parse_xml_to_curl(xml_file)
+        
+        for i, command in enumerate(curl_commands, 1):
+            print(f"Curl command for item {i}:")
+            print(command)
+            print()
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+if __name__ == "__main__":
+    main()
+
