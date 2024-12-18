@@ -1,0 +1,30 @@
+Any form of command injection, across filetypes 
+
+PHP typically processes system commands through:
+
+shell_exec()
+exec()
+system()
+passthru()
+backticks (``)
+
+
+Node.js typically uses:
+
+child_process.exec()
+child_process.spawn()
+child_process.execSync()
+
+
+Basic safe OS commands, no context
+Basic Safe OS Commands, language bound context
+Doing just whoami vs shell_exec(whoami)
+Command Chaining Base
+PHP: thing.php?cmd=legit_command;malicious_command
+Node: thing.js?cmd=legit_command;malicious_command
+Basic safe with separators
+Command Chaining with separators
+Filter bypass base
+Filter bypass context’d
+Filter bypass chaining
+Filter bypass separators
