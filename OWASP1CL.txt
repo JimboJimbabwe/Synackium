@@ -1,0 +1,12 @@
+BOLA BOPLA BAFLA
+
+Define the Object/Function Observed
+Define the endpoint
+Define its normal operations via a description
+Define the CRUD rights of the object, or function
+Can a user do C, R, U, D?
+Does the server do C, R, U, D?
+Organize all objects via endpoint
+Attempt to do alternative levers
+If object is only R, and NOT C then test doing C, U, D on object
+If function is only…. (same as above)
