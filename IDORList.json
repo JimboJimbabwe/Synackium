@@ -1,0 +1,147 @@
+{
+  "idor_testing_locations": [
+    {
+      "category": "URL Parameters and API Endpoints",
+      "description": "Common locations in URLs and API endpoints where IDOR vulnerabilities might exist",
+      "examples": [
+        {
+          "type": "Numeric IDs",
+          "example": "/api/users/123/profile",
+          "testing_notes": "Try accessing different user IDs, check if authorization is properly enforced"
+        },
+        {
+          "type": "Sequential References",
+          "example": "/orders/1234",
+          "testing_notes": "Test with sequential numbers to access other users' orders"
+        },
+        {
+          "type": "Encoded IDs",
+          "example": "/user/ZG9jdW1lbnRfaWQ=",
+          "testing_notes": "Decode Base64/encoded values, check for patterns, modify and re-encode"
+        }
+      ]
+    },
+    {
+      "category": "Profile and Account Functions",
+      "description": "User-specific functionality that often contains IDOR vulnerabilities",
+      "vulnerable_areas": [
+        {
+          "area": "Profile Editing",
+          "common_endpoints": [
+            "/edit-profile",
+            "/update-user",
+            "/account/settings"
+          ],
+          "testing_approach": "Look for user identifiers in requests, attempt to modify other users' data"
+        },
+        {
+          "area": "Account Settings",
+          "common_endpoints": [
+            "/account/preferences",
+            "/user/settings",
+            "/profile/security"
+          ],
+          "testing_approach": "Check if settings can be modified for other users by changing IDs"
+        },
+        {
+          "area": "Document Downloads",
+          "common_endpoints": [
+            "/download/doc/{id}",
+            "/files/get/{user_id}",
+            "/documents/view/{doc_id}"
+          ],
+          "testing_approach": "Attempt to access documents belonging to other users"
+        },
+        {
+          "area": "Personal Data Views",
+          "common_endpoints": [
+            "/api/user-data",
+            "/personal-info",
+            "/user/details"
+          ],
+          "testing_approach": "Check if personal data of other users can be accessed"
+        }
+      ]
+    },
+    {
+      "category": "Business-Critical Functions",
+      "description": "Sensitive business operations that require strict access control",
+      "vulnerable_areas": [
+        {
+          "area": "Order History",
+          "endpoints": ["/orders/history", "/purchases", "/transactions"],
+          "risk_level": "High",
+          "data_exposure": "Financial and Personal Information"
+        },
+        {
+          "area": "Financial Records",
+          "endpoints": ["/payments", "/invoices", "/billing"],
+          "risk_level": "Critical",
+          "data_exposure": "Payment Details and Transaction History"
+        },
+        {
+          "area": "Document Management",
+          "endpoints": ["/documents", "/files", "/uploads"],
+          "risk_level": "High",
+          "data_exposure": "Sensitive Documents and Files"
+        },
+        {
+          "area": "Receipts and Invoices",
+          "endpoints": ["/receipt/{id}", "/invoice/download"],
+          "risk_level": "High",
+          "data_exposure": "Financial and Business Data"
+        }
+      ]
+    },
+    {
+      "category": "Common IDOR Patterns",
+      "description": "Patterns and implementations that often indicate IDOR vulnerabilities",
+      "patterns": [
+        {
+          "pattern": "GUID/UUID Usage",
+          "example": "/api/document/550e8400-e29b-41d4-a716-446655440000",
+          "test_approach": "Try replacing UUID with numeric IDs or predictable values",
+          "common_bypass": "Some systems accept both UUID and numeric IDs"
+        },
+        {
+          "pattern": "User ID Parameters",
+          "example": "/api/getData?userId=123",
+          "test_approach": "Modify user IDs to access other users' data",
+          "common_bypass": "Try different parameter names (uid, user_id, id)"
+        },
+        {
+          "pattern": "File Download References",
+          "example": "/download?file=12345",
+          "test_approach": "Attempt to access files with different IDs",
+          "common_bypass": "Try path traversal in combination with IDOR"
+        },
+        {
+          "pattern": "Multi-tenant Systems",
+          "example": "/api/org/123/users",
+          "test_approach": "Test access across different organizations/tenants",
+          "common_bypass": "Modify organization IDs or tenant identifiers"
+        },
+        {
+          "pattern": "Admin Functions",
+          "example": "/admin/user/123/edit",
+          "test_approach": "Test access to admin functions with regular user credentials",
+          "common_bypass": "Try accessing admin endpoints with modified user IDs"
+        }
+      ]
+    }
+  ],
+  "testing_methodology": {
+    "prerequisites": [
+      "Create multiple test accounts with different privilege levels",
+      "Set up intercepting proxy (Burp Suite/OWASP ZAP)",
+      "Document baseline functionality for each test account"
+    ],
+    "testing_steps": [
+      "Identify endpoints that reference user or object IDs",
+      "Map out the application's CRUD operations",
+      "Test horizontal privilege escalation (same-level access)",
+      "Test vertical privilege escalation (higher-level access)",
+      "Verify access control in all identified endpoints"
+    ]
+  }
+}

