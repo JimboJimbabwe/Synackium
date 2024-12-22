@@ -6,6 +6,8 @@ from pathlib import Path
 import re
 from datetime import datetime
 import os
+import sys
+import argparse
 
 class HTTPViewer:
     def __init__(self, root):
@@ -22,6 +24,7 @@ class HTTPViewer:
         self.setup_gui()
         self.setup_bindings()
         
+    # [Rest of the HTTPViewer class remains unchanged]
     def setup_gui(self):
         """Setup all GUI elements"""
         # Main frame
@@ -316,11 +319,32 @@ class HTTPViewer:
         if self.current_index < len(self.items) - 1:
             self.current_index += 1
             self.update_display()
-            
+
+def parse_arguments():
+    """Parse command line arguments"""
+    parser = argparse.ArgumentParser(description='HTTP Request/Response Viewer')
+    parser.add_argument('xml_file', 
+                       help='Path to the XML file containing HTTP requests/responses')
+    return parser.parse_args()
+
 def main():
+    """Main entry point of the application"""
+    # Parse command line arguments
+    args = parse_arguments()
+    
+    # Check if the file exists
+    if not os.path.exists(args.xml_file):
+        print(f"Error: File '{args.xml_file}' does not exist", file=sys.stderr)
+        sys.exit(1)
+        
+    # Initialize GUI
     root = tk.Tk()
     app = HTTPViewer(root)
-    app.load_xml_file("NBA.xml")
+    
+    # Load the XML file
+    app.load_xml_file(args.xml_file)
+    
+    # Start the main event loop
     root.mainloop()
 
 if __name__ == "__main__":
