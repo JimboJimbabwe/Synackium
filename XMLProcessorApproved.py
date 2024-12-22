@@ -251,7 +251,7 @@ class HTTPViewer:
             # Split request into lines
             lines = request_content.split('\n')
             method = lines[0].split()[0]
-            headers = []
+            headers = ["-H $'synack-WalkerTXSSRanger: 1'"]
             cookie = None
             
             # Parse headers
