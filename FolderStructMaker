@@ -1,0 +1,95 @@
+import os
+import sys
+from pathlib import Path
+
+
+def create_vulnerability_folders(folder_path):
+    """Create standard vulnerability test folders within the given path."""
+    vulnerability_folders = [
+        'SQL',
+        'OS',
+        'Path Trav',
+        'IDOR',
+        'GQL',
+        'XSS',
+        'Impersonate'
+    ]
+
+    for vuln_folder in vulnerability_folders:
+        vuln_path = os.path.join(folder_path, vuln_folder)
+        os.makedirs(vuln_path, exist_ok=True)
+
+
+def create_method_folders(parent_folder):
+    """Create method folders and their subsequent vulnerability folders."""
+    method_folders = [
+        'POST',
+        'GET',
+        'DELETE',
+        'PUT',
+        'Objects',
+        'Functions',
+        'Identity',
+        'RAPI'
+    ]
+
+    for method in method_folders:
+        method_path = os.path.join(parent_folder, method)
+        os.makedirs(method_path, exist_ok=True)
+        create_vulnerability_folders(method_path)
+
+
+def create_directory_structure(parent_path, wordlist_path):
+    """
+    Create the complete directory structure based on the wordlist.
+
+    Args:
+        parent_path (str): Path to the parent directory
+        wordlist_path (str): Path to the wordlist file
+    """
+    # Ensure parent directory exists
+    os.makedirs(parent_path, exist_ok=True)
+
+    # Read and process wordlist
+    try:
+        with open(wordlist_path, 'r') as file:
+            for line in file:
+                # Clean the line (remove whitespace, newlines, etc.)
+                folder_name = line.strip()
+                if folder_name:  # Skip empty lines
+                    # Create main folder from wordlist
+                    main_folder_path = os.path.join(parent_path, folder_name)
+                    os.makedirs(main_folder_path, exist_ok=True)
+
+                    # Create method folders and their subfolders
+                    create_method_folders(main_folder_path)
+
+    except FileNotFoundError:
+        print(f"Error: Wordlist file not found at {wordlist_path}")
+        sys.exit(1)
+    except PermissionError:
+        print(f"Error: Permission denied when accessing {wordlist_path}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"An unexpected error occurred: {str(e)}")
+        sys.exit(1)
+
+
+def main():
+    if len(sys.argv) != 3:
+        print("Usage: python script.py <parent_folder_path> <wordlist_path>")
+        sys.exit(1)
+
+    parent_path = sys.argv[1]
+    wordlist_path = sys.argv[2]
+
+    print(f"Creating directory structure...")
+    print(f"Parent folder: {parent_path}")
+    print(f"Using wordlist: {wordlist_path}")
+
+    create_directory_structure(parent_path, wordlist_path)
+    print("Directory structure created successfully!")
+
+
+if __name__ == "__main__":
+    main()
