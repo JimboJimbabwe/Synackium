@@ -1,0 +1,7 @@
+1.) Grab from Burp
+2.) Retrieve XML
+3.) Use XMLProcessor.py to engage/apply test conditions
+4.) Use Curl Lister.py to make CMDs.txt for each set of Test Commands made
+5.) Use the CurlRunner Etiquette script on the set at hand
+6.) When each set is done, move to #7
+7.) Read through responses with PostTestViewer.py
