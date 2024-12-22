@@ -1,0 +1,99 @@
+import requests
+from bs4 import BeautifulSoup
+import json
+
+def identify_app_type(url):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        app_types = []
+        
+        # Check for SPA indicators
+        if soup.find('div', id='root') or soup.find('div', id='app'):
+            app_types.append("Single Page Application (SPA)")
+        
+        # Check for PWA indicators
+        if soup.find('link', rel='manifest'):
+            app_types.append("Progressive Web App (PWA)")
+        
+        # Check for GraphQL
+        if 'graphql' in response.text.lower():
+            app_types.append("GraphQL API")
+        
+        # Check for RESTful API
+        if 'api' in url or 'swagger' in response.text.lower():
+            app_types.append("RESTful API")
+        
+        # Check for Server-Side Rendering
+        if len(soup.find_all('script')) < 3 and len(soup.find_all('link')) < 3:
+            app_types.append("Server-Side Rendered Application")
+        
+        # Check for Websockets
+        if 'websocket' in response.text.lower():
+            app_types.append("Websocket-based Application")
+        
+        # If no specific type identified, it might be a traditional web app
+        if not app_types:
+            app_types.append("Traditional Web Application")
+        
+        return app_types
+    except Exception as e:
+        return [f"Error identifying app type: {str(e)}"]
+
+def suggest_crawling_strategy(app_types):
+    strategies = {
+        "Single Page Application (SPA)": [
+            "Use a headless browser like Puppeteer or Selenium to execute JavaScript",
+            "Monitor XHR/Fetch requests during user interactions",
+            "Analyze JavaScript files for routing information"
+        ],
+        "Progressive Web App (PWA)": [
+            "Analyze the manifest.json file for additional endpoints",
+            "Inspect Service Worker scripts for cached routes"
+        ],
+        "GraphQL API": [
+            "Use introspection queries to discover the schema",
+            "Analyze client-side code for GraphQL queries and mutations"
+        ],
+        "RESTful API": [
+            "Look for API documentation (Swagger/OpenAPI specs)",
+            "Use API discovery tools that can parse common API structures",
+            "Analyze client-side code for API calls"
+        ],
+        "Server-Side Rendered Application": [
+            "Use traditional web crawling techniques",
+            "Analyze server-side routing files if accessible"
+        ],
+        "Websocket-based Application": [
+            "Monitor websocket connections and messages",
+            "Analyze client-side code for websocket event handlers"
+        ],
+        "Traditional Web Application": [
+            "Use traditional crawling techniques",
+            "Check for sitemap.xml and robots.txt files",
+            "Analyze HTML for links and forms"
+        ]
+    }
+    
+    suggested_strategies = []
+    for app_type in app_types:
+        suggested_strategies.extend(strategies.get(app_type, []))
+    
+    return suggested_strategies
+
+def main():
+    url = input("Enter the URL of the web application: ")
+    app_types = identify_app_type(url)
+    
+    print("\nIdentified Application Type(s):")
+    for app_type in app_types:
+        print(f"- {app_type}")
+    
+    print("\nSuggested Crawling Strategies:")
+    strategies = suggest_crawling_strategy(app_types)
+    for strategy in strategies:
+        print(f"- {strategy}")
+
+if __name__ == "__main__":
+    main()
