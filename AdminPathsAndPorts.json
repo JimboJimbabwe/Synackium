@@ -1,0 +1,338 @@
+{
+  "application_servers": {
+    "tomcat": {
+      "management": "/manager",
+      "default_port": 8080
+    },
+    "wildfly": {
+      "management": "/console",
+      "default_port": 9990
+    },
+    "websphere": {
+      "management": "/ibm/console",
+      "default_port": 9060
+    },
+    "weblogic": {
+      "management": "/console",
+      "default_port": 7001
+    },
+    "jboss_eap": {
+      "management": "/management",
+      "default_port": 8080
+    },
+    "glassfish": {
+      "management": "/admin",
+      "default_port": 4848
+    },
+    "jetty": {
+      "management": "/console",
+      "default_port": 8080
+    },
+    "payara": {
+      "management": "/admin",
+      "default_port": 4848
+    },
+    "tomee": {
+      "management": "/manager",
+      "default_port": 8080
+    },
+    "resin": {
+      "management": "/resin-admin",
+      "default_port": 8080
+    }
+  },
+  "web_servers": {
+    "nginx": {
+      "management": "/nginx_status",
+      "default_port": 80
+    },
+    "apache": {
+      "management": "/server-status",
+      "default_port": 80
+    },
+    "haproxy": {
+      "management": "/haproxy?stats",
+      "default_port": 80
+    },
+    "caddy": {
+      "management": "/metrics",
+      "default_port": 80
+    },
+    "traefik": {
+      "management": "/dashboard",
+      "default_port": 8080
+    },
+    "litespeed": {
+      "management": "/admin",
+      "default_port": 8088
+    },
+    "cherokee": {
+      "management": "/admin",
+      "default_port": 9090
+    },
+    "lighttpd": {
+      "management": "/server-status",
+      "default_port": 80
+    },
+    "openlitespeed": {
+      "management": "/admin",
+      "default_port": 7080
+    },
+    "varnish": {
+      "management": "/varnish",
+      "default_port": 6081
+    }
+  },
+  "api_gateways": {
+    "kong": {
+      "management": "/admin",
+      "default_port": 8001
+    },
+    "openig": {
+      "management": "/openig/studio",
+      "default_port": 8080
+    },
+    "apigee": {
+      "management": "/edge",
+      "default_port": 9000
+    },
+    "tyk": {
+      "management": "/tyk/dashboard",
+      "default_port": 3000
+    },
+    "ambassador": {
+      "management": "/ambassador/v0/diag",
+      "default_port": 8877
+    },
+    "wso2": {
+      "management": "/carbon",
+      "default_port": 9443
+    },
+    "gravitee": {
+      "management": "/management",
+      "default_port": 8083
+    },
+    "azure_api_management": {
+      "management": "/admin",
+      "default_port": null
+    },
+    "mulesoft": {
+      "management": "/anypoint",
+      "default_port": 8081
+    },
+    "aws_api_gateway": {
+      "management": "/console",
+      "default_port": null
+    }
+  },
+  "databases": {
+    "postgresql": {
+      "management": "/pgadmin",
+      "default_port": 5432
+    },
+    "mysql": {
+      "management": "/phpmyadmin",
+      "default_port": 3306
+    },
+    "mongodb": {
+      "management": "/mongo-express",
+      "default_port": 27017
+    },
+    "cassandra": {
+      "management": "/opscenter",
+      "default_port": 9042
+    },
+    "redis": {
+      "management": "/redisinsight",
+      "default_port": 6379
+    },
+    "mariadb": {
+      "management": "/phpmyadmin",
+      "default_port": 3306
+    },
+    "couchdb": {
+      "management": "/_utils",
+      "default_port": 5984
+    },
+    "neo4j": {
+      "management": "/browser",
+      "default_port": 7474
+    },
+    "ravendb": {
+      "management": "/studio",
+      "default_port": 8080
+    },
+    "arangodb": {
+      "management": "/_admin",
+      "default_port": 8529
+    }
+  },
+  "message_brokers": {
+    "kafka": {
+      "management": "/kafka-manager",
+      "default_port": 9092
+    },
+    "rabbitmq": {
+      "management": "/",
+      "default_port": 15672
+    },
+    "activemq": {
+      "management": "/admin",
+      "default_port": 8161
+    },
+    "zeromq": {
+      "management": null,
+      "default_port": 5555
+    },
+    "redis_pubsub": {
+      "management": "/redisinsight",
+      "default_port": 6379
+    },
+    "apache_pulsar": {
+      "management": "/admin",
+      "default_port": 8080
+    },
+    "ibm_mq": {
+      "management": "/ibmmq",
+      "default_port": 9443
+    },
+    "amazon_mq": {
+      "management": null,
+      "default_port": 5671
+    },
+    "azure_service_bus": {
+      "management": null,
+      "default_port": null
+    },
+    "rocketmq": {
+      "management": "/console",
+      "default_port": 9876
+    }
+  },
+  "container_platforms": {
+    "docker": {
+      "management": "/",
+      "default_port": 2375
+    },
+    "kubernetes": {
+      "management": "/api/v1",
+      "default_port": 6443
+    },
+    "openshift": {
+      "management": "/console",
+      "default_port": 8443
+    },
+    "rancher": {
+      "management": "/dashboard",
+      "default_port": 443
+    },
+    "portainer": {
+      "management": "/",
+      "default_port": 9000
+    },
+    "nomad": {
+      "management": "/ui",
+      "default_port": 4646
+    },
+    "docker_swarm": {
+      "management": "/",
+      "default_port": 2377
+    },
+    "podman": {
+      "management": null,
+      "default_port": null
+    },
+    "containerd": {
+      "management": null,
+      "default_port": null
+    },
+    "lxc": {
+      "management": "/ui",
+      "default_port": 8443
+    }
+  },
+  "service_mesh": {
+    "istio": {
+      "management": "/dashboard",
+      "default_port": 15012
+    },
+    "linkerd": {
+      "management": "/dashboard",
+      "default_port": 8084
+    },
+    "consul": {
+      "management": "/ui",
+      "default_port": 8500
+    },
+    "aws_app_mesh": {
+      "management": null,
+      "default_port": null
+    },
+    "kuma": {
+      "management": "/",
+      "default_port": 5681
+    },
+    "open_service_mesh": {
+      "management": "/osm-edge",
+      "default_port": 9091
+    },
+    "traefik_mesh": {
+      "management": "/dashboard",
+      "default_port": 8080
+    },
+    "cilium": {
+      "management": "/dashboard",
+      "default_port": 9879
+    },
+    "network_service_mesh": {
+      "management": "/dashboard",
+      "default_port": 9091
+    },
+    "grey_matter": {
+      "management": "/dashboard",
+      "default_port": 10080
+    }
+  },
+  "identity_management": {
+    "keycloak": {
+      "management": "/auth",
+      "default_port": 8080
+    },
+    "auth0": {
+      "management": "/dashboard",
+      "default_port": null
+    },
+    "okta": {
+      "management": "/admin",
+      "default_port": null
+    },
+    "forgerock": {
+      "management": "/openam",
+      "default_port": 8443
+    },
+    "ping_identity": {
+      "management": "/pingfederate",
+      "default_port": 9999
+    },
+    "azure_ad": {
+      "management": null,
+      "default_port": null
+    },
+    "aws_iam": {
+      "management": null,
+      "default_port": null
+    },
+    "openam": {
+      "management": "/openam",
+      "default_port": 8443
+    },
+    "shibboleth": {
+      "management": "/idp",
+      "default_port": 8443
+    },
+    "gluu": {
+      "management": "/identity",
+      "default_port": 8443
+    }
+  }
+}
