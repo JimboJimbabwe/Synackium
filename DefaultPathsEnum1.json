@@ -1,0 +1,201 @@
+{
+  "application_servers": {
+    "tomcat": {
+      "default_paths": [
+        "/docs",
+        "/examples",
+        "/manager/html",
+        "/manager/status",
+        "/host-manager/html",
+        "/manager/jmxproxy",
+        "/META-INF",
+        "/WEB-INF"
+      ]
+    },
+    "wildfly": {
+      "default_paths": [
+        "/console",
+        "/management",
+        "/health",
+        "/metrics",
+        "/jolokia",
+        "/status"
+      ]
+    },
+    "websphere": {
+      "default_paths": [
+        "/ibm/console",
+        "/snoop",
+        "/wasPerfTool",
+        "/IBMJMXConnectorREST",
+        "/admin",
+        "/systemstatus"
+      ]
+    },
+    "weblogic": {
+      "default_paths": [
+        "/console",
+        "/management",
+        "/bea_wls_internal",
+        "/bea_wls_deployment_internal",
+        "/wls-wsat",
+        "/javax.faces"
+      ]
+    }
+  },
+  "web_servers": {
+    "nginx": {
+      "default_paths": [
+        "/nginx_status",
+        "/.well-known",
+        "/server-status",
+        "/metrics",
+        "/stub_status"
+      ]
+    },
+    "apache": {
+      "default_paths": [
+        "/server-status",
+        "/server-info",
+        "/.well-known",
+        "/icons/",
+        "/manual/",
+        "/error/"
+      ]
+    }
+  },
+  "databases": {
+    "postgresql": {
+      "default_paths": [
+        "/metrics",
+        "/pg_status",
+        "/pgadmin",
+        "/browser"
+      ]
+    },
+    "mongodb": {
+      "default_paths": [
+        "/metrics",
+        "/serverStatus",
+        "/_db/_admin",
+        "/stats",
+        "/replSetGetStatus"
+      ]
+    },
+    "mysql": {
+      "default_paths": [
+        "/phpmyadmin",
+        "/mysqladmin",
+        "/mysql",
+        "/status",
+        "/metrics"
+      ]
+    },
+    "elasticsearch": {
+      "default_paths": [
+        "/_cat/health",
+        "/_cat/indices",
+        "/_cluster/health",
+        "/_nodes/stats",
+        "/_template",
+        "/_mapping"
+      ]
+    }
+  },
+  "message_brokers": {
+    "rabbitmq": {
+      "default_paths": [
+        "/api",
+        "/api/overview",
+        "/api/connections",
+        "/api/nodes",
+        "/api/vhosts",
+        "/metrics"
+      ]
+    },
+    "kafka": {
+      "default_paths": [
+        "/metrics",
+        "/jolokia",
+        "/mbean",
+        "/api/status",
+        "/api/brokers"
+      ]
+    },
+    "activemq": {
+      "default_paths": [
+        "/admin",
+        "/api",
+        "/metrics",
+        "/console",
+        "/jolokia"
+      ]
+    }
+  },
+  "container_platforms": {
+    "kubernetes": {
+      "default_paths": [
+        "/api",
+        "/api/v1",
+        "/apis",
+        "/healthz",
+        "/metrics",
+        "/openapi/v2",
+        "/version",
+        "/swagger.json"
+      ]
+    },
+    "docker": {
+      "default_paths": [
+        "/containers/json",
+        "/images/json",
+        "/info",
+        "/version",
+        "/events",
+        "/system/df"
+      ]
+    }
+  },
+  "service_mesh": {
+    "istio": {
+      "default_paths": [
+        "/metrics",
+        "/debug",
+        "/version",
+        "/configz",
+        "/ready",
+        "/health"
+      ]
+    },
+    "consul": {
+      "default_paths": [
+        "/v1/agent/members",
+        "/v1/catalog/services",
+        "/v1/health/service",
+        "/v1/status/leader",
+        "/v1/status/peers"
+      ]
+    }
+  },
+  "identity_management": {
+    "keycloak": {
+      "default_paths": [
+        "/auth",
+        "/auth/admin",
+        "/auth/realms",
+        "/auth/resources",
+        "/metrics",
+        "/health"
+      ]
+    },
+    "forgerock": {
+      "default_paths": [
+        "/openam",
+        "/json/metrics",
+        "/json/health",
+        "/json/serverinfo/*",
+        "/oauth2"
+      ]
+    }
+  }
+}
