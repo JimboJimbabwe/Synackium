@@ -1,0 +1,70 @@
+import ipaddress
+from typing import List, Tuple
+
+def parse_ip_list(filename: str) -> Tuple[List[str], List[str]]:
+    """
+    Parse IP addresses from a file and separate them into regular IPs and subnet IPs.
+    Returns tuple of (regular_ips, subnet_ips)
+    """
+    regular_ips = []
+    subnet_ips = []
+    
+    try:
+        with open(filename, 'r') as file:
+            for line in file:
+                ip = line.strip()
+                if not ip:  # Skip empty lines
+                    continue
+                    
+                # Check if IP contains subnet notation
+                if '/' in ip:
+                    subnet_ips.append(ip)
+                else:
+                    regular_ips.append(ip)
+                    
+    except FileNotFoundError:
+        print(f"Error: Could not find file {filename}")
+        return [], []
+        
+    return regular_ips, subnet_ips
+
+def sort_ips_by_octets(ips: List[str]) -> List[str]:
+    """
+    Sort IP addresses first by third octet, then by fourth octet
+    """
+    def ip_sort_key(ip: str) -> tuple:
+        try:
+            # Split IP into octets and convert to integers
+            octets = [int(x) for x in ip.split('.')]
+            # Return tuple for sorting (third_octet, fourth_octet)
+            return (octets[2], octets[3])
+        except (IndexError, ValueError):
+            print(f"Warning: Invalid IP address format: {ip}")
+            return (0, 0)
+    
+    return sorted(ips, key=ip_sort_key)
+
+def main():
+    input_file = "ip_list.txt"  # Your input file
+    
+    # Parse IPs from input file
+    regular_ips, subnet_ips = parse_ip_list(input_file)
+    
+    # Sort regular IPs
+    sorted_ips = sort_ips_by_octets(regular_ips)
+    
+    # Write organized regular IPs to file
+    with open("organized.txt", "w") as f:
+        for ip in sorted_ips:
+            f.write(f"{ip}\n")
+    
+    # Write subnet IPs to file
+    with open("subnets.txt", "w") as f:
+        for ip in subnet_ips:
+            f.write(f"{ip}\n")
+    
+    print(f"Processed {len(regular_ips)} regular IPs and {len(subnet_ips)} subnet IPs")
+    print("Results written to 'organized.txt' and 'subnets.txt'")
+
+if __name__ == "__main__":
+    main()
