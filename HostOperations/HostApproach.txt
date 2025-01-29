@@ -1,0 +1,23 @@
+Prep:
+Organize IPs by octet
+Text file
+JSON File (For what ip resolve to what)
+Action
+Get NMAP Base command
+Find a way to get the DNS resolution to the JSON file
+Hostname: <NAME> OR <NONE>
+Host Up: <YES/NO> OR <INCONCLUSIVE>
+Take list json and process new refined list for review
+Make scanner to scan for common subdomains
+File.
+Mail.
+Server.
+Admin.
+Etc etc etc
+Review and visualize targets
+Maybe a cool graphical interface
+
+Operational Security
+Ensure ability to weigh scopes with scope weigher
+When you get the refined list, and go back to testing it, you will always download the target scope list
+That list, will weigh itself against the JSON list. If there are no conflicting IPs in regards to the list from scope then the test will continue.
