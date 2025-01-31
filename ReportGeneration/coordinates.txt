@@ -1,0 +1,7 @@
+WebpageAck: None
+NullClick: None
+SaveWindow: None
+FilenameBox: None
+DirectoryBar: None
+SaveButton: None
+CloseWindow: None
