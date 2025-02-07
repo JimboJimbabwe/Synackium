@@ -1,0 +1,399 @@
+Common Ports and Their Software Implementations
+Web Servers and Proxies
+
+Port 80 (HTTP)
+
+Apache HTTP Server
+
+Default config: /etc/apache2/apache2.conf
+Common modules: mod_ssl, mod_rewrite, mod_proxy
+
+
+Nginx
+
+Default config: /etc/nginx/nginx.conf
+Known for: reverse proxy, load balancing
+
+
+IIS (Internet Information Services)
+
+Windows-based
+Management via IIS Manager
+
+
+Caddy
+
+Modern auto-HTTPS server
+Simple Caddyfile configuration
+
+
+
+
+Port 443 (HTTPS)
+
+Same software as Port 80, with SSL/TLS configuration
+Let's Encrypt - Common SSL provider
+Certbot - Automated certificate management
+
+
+
+Database Servers
+
+Port 3306
+
+MySQL
+
+Default config: /etc/mysql/my.cnf
+Management: MySQL Workbench, phpMyAdmin
+
+
+MariaDB
+
+Fork of MySQL
+Compatible with MySQL tools
+
+
+
+
+Port 5432
+
+PostgreSQL
+
+Default config: postgresql.conf
+Tools: pgAdmin, psql, DBeaver
+
+
+Amazon RDS PostgreSQL
+
+Managed PostgreSQL service
+
+
+EnterpriseDB
+
+Enterprise PostgreSQL distribution
+
+
+
+
+Port 1433
+
+Microsoft SQL Server
+
+Management Studio (SSMS)
+SQL Server Express (free version)
+
+
+Azure SQL Database
+
+Cloud-based SQL Server
+
+
+
+
+
+Email Servers
+
+Port 25 (SMTP)
+
+Postfix
+
+Default on many Linux distributions
+Config: /etc/postfix/main.cf
+
+
+Microsoft Exchange Server
+
+Windows-based enterprise solution
+
+
+Exim
+
+Default on Debian systems
+
+
+SendMail
+
+One of the oldest SMTP servers
+
+
+
+
+Port 143 (IMAP) & 110 (POP3)
+
+Dovecot
+
+Modern IMAP/POP3 server
+Often paired with Postfix
+
+
+Courier Mail Server
+
+Integrated mail solution
+
+
+Microsoft Exchange
+
+Enterprise-grade solution
+
+
+Zimbra
+
+Open-source collaboration suite
+
+
+
+
+
+File Transfer
+
+Port 21 (FTP)
+
+vsftpd
+
+"Very Secure FTP Daemon"
+Common on Linux
+
+
+FileZilla Server
+
+Popular Windows FTP server
+
+
+ProFTPD
+
+Feature-rich FTP server
+
+
+Pure-FTPd
+
+Security-focused FTP server
+
+
+
+
+Port 22 (SSH/SFTP)
+
+OpenSSH
+
+Default on most Unix systems
+Includes SFTP server
+
+
+Bitvise SSH Server
+
+Windows SSH/SFTP server
+
+
+WinSCP
+
+Windows SFTP client
+
+
+MobaXterm
+
+Enhanced terminal with SFTP
+
+
+
+
+
+Cache & Queue Servers
+
+Port 6379
+
+Redis
+
+Default config: redis.conf
+Tools: Redis Desktop Manager
+Variants: Redis Stack, Redis Enterprise
+
+
+
+
+Port 11211
+
+Memcached
+
+Simple memory caching
+Tools: PHPMemcachedAdmin
+Used by: Facebook, Wikipedia
+
+
+
+
+
+Message Brokers
+
+Port 5672 (AMQP)
+
+RabbitMQ
+
+Management interface on port 15672
+Plugins for multiple protocols
+
+
+Apache ActiveMQ
+
+Java-based message broker
+Supports multiple protocols
+
+
+
+
+
+Development Servers
+
+Port 3000
+
+Node.js
+
+Express.js
+Next.js
+React Development Server
+
+
+Ruby on Rails
+
+Development environment
+
+
+
+
+Port 8080
+
+Apache Tomcat
+
+Java servlet container
+
+
+Jenkins
+
+CI/CD server
+
+
+Spring Boot
+
+Java applications
+
+
+Jetty
+
+Java web server
+
+
+
+
+
+Container & Orchestration
+
+Port 2375/2376
+
+Docker
+
+Daemon API ports
+Docker Registry (port 5000)
+
+
+Kubernetes
+
+API Server (port 6443)
+kubelet (port 10250)
+
+
+
+
+
+Monitoring & Metrics
+
+Port 9090
+
+Prometheus
+
+Metrics collection
+
+
+Node Exporter (9100)
+
+System metrics
+
+
+
+
+Port 3000
+
+Grafana
+
+Visualization platform
+
+
+Kibana
+
+Elasticsearch frontend
+
+
+
+
+
+Directory Services
+
+Port 389 (LDAP)
+
+OpenLDAP
+
+Open source implementation
+
+
+Active Directory
+
+Microsoft's directory service
+
+
+Apache Directory Server
+
+Java-based LDAP server
+
+
+
+
+
+Remote Access
+
+Port 3389 (RDP)
+
+Windows Remote Desktop Services
+
+Built into Windows Server
+
+
+xrdp
+
+RDP server for Linux
+
+
+FreeRDP
+
+Open source RDP implementation
+
+
+
+
+Port 5900 (VNC)
+
+TightVNC
+
+Cross-platform VNC
+
+
+RealVNC
+
+Commercial VNC solution
+
+
+TigerVNC
+
+High-performance VNC
+
+
+UltraVNC
+
+Windows-focused VNC
