@@ -1,0 +1,334 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "Jenkins",
+      "DefaultPort": 8080,
+      "Probes": [
+        {
+          "Description": "Jenkins API Check",
+          "Send": "GET /api/json HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"_class\" : \"hudson.model.Hudson\"",
+              "Indicates": "Jenkins instance"
+            },
+            {
+              "Pattern": "X-Jenkins:",
+              "Indicates": "Jenkins header"
+            }
+          ]
+        },
+        {
+          "Description": "Jenkins Version",
+          "Send": "GET / HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Jenkins ver\\.",
+              "Indicates": "Jenkins version page"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Cassandra",
+      "DefaultPort": 9042,
+      "Probes": [
+        {
+          "Description": "CQL Protocol",
+          "Send": {
+            "HexString": "040000000B00000000",
+            "Explanation": "CQL protocol startup message"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x84\\x00\\x00\\x00\\x00",
+              "Indicates": "Cassandra CQL protocol"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "LDAP",
+      "DefaultPort": 389,
+      "Probes": [
+        {
+          "Description": "LDAP Search Request",
+          "Send": {
+            "HexString": "300C020101600702010304008000",
+            "Explanation": "LDAP search request for root DSE"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^0\\x84",
+              "Indicates": "LDAP server response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Neo4j",
+      "DefaultPort": 7687,
+      "Probes": [
+        {
+          "Description": "Bolt Protocol Handshake",
+          "Send": {
+            "HexString": "6060B017",
+            "Explanation": "Bolt protocol handshake"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x00\\x00\\x00\\x01",
+              "Indicates": "Neo4j Bolt protocol"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Consul",
+      "DefaultPort": 8500,
+      "Probes": [
+        {
+          "Description": "Consul Status",
+          "Send": "GET /v1/status/leader HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"\\d+\\.\\d+\\.\\d+\\.\\d+:\\d+\"",
+              "Indicates": "Consul leader response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Etcd",
+      "DefaultPort": 2379,
+      "Probes": [
+        {
+          "Description": "Etcd Version",
+          "Send": "GET /version HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"etcdserver\"",
+              "Indicates": "Etcd server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Kubernetes API",
+      "DefaultPort": 6443,
+      "Probes": [
+        {
+          "Description": "Kubernetes Version",
+          "Send": "GET /version HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"gitVersion\":",
+              "Indicates": "Kubernetes API server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Prometheus",
+      "DefaultPort": 9090,
+      "Probes": [
+        {
+          "Description": "Prometheus API",
+          "Send": "GET /api/v1/status/config HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"status\":\"success\"",
+              "Indicates": "Prometheus API"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "InfluxDB",
+      "DefaultPort": 8086,
+      "Probes": [
+        {
+          "Description": "InfluxDB Ping",
+          "Send": "GET /ping HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "X-Influxdb-Version:",
+              "Indicates": "InfluxDB server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "CouchDB",
+      "DefaultPort": 5984,
+      "Probes": [
+        {
+          "Description": "CouchDB Info",
+          "Send": "GET / HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"couchdb\":\"Welcome\"",
+              "Indicates": "CouchDB server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "RethinkDB",
+      "DefaultPort": 28015,
+      "Probes": [
+        {
+          "Description": "RethinkDB Handshake",
+          "Send": {
+            "HexString": "910000000000000000000000",
+            "Explanation": "RethinkDB protocol handshake"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x91\\x00\\x00",
+              "Indicates": "RethinkDB server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Solr",
+      "DefaultPort": 8983,
+      "Probes": [
+        {
+          "Description": "Solr Info",
+          "Send": "GET /solr/admin/info/system HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"solr_home\":",
+              "Indicates": "Solr server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "ZooKeeper",
+      "DefaultPort": 2181,
+      "Probes": [
+        {
+          "Description": "ZooKeeper Status",
+          "Send": "stat",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^Zookeeper version:",
+              "Indicates": "ZooKeeper server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Grafana",
+      "DefaultPort": 3000,
+      "Probes": [
+        {
+          "Description": "Grafana API",
+          "Send": "GET /api/health HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"database\":\"ok\"",
+              "Indicates": "Grafana server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "GitLab",
+      "DefaultPort": 80,
+      "Probes": [
+        {
+          "Description": "GitLab Version",
+          "Send": "GET /api/v4/version HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"version\":",
+              "Indicates": "GitLab API"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Nexus Repository",
+      "DefaultPort": 8081,
+      "Probes": [
+        {
+          "Description": "Nexus Status",
+          "Send": "GET /service/rest/v1/status HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"edition\":\"OSS\"",
+              "Indicates": "Nexus Repository OSS"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Docker Registry",
+      "DefaultPort": 5000,
+      "Probes": [
+        {
+          "Description": "Registry Version",
+          "Send": "GET /v2/ HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Docker-Distribution-Api-Version: registry/2.0",
+              "Indicates": "Docker Registry v2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Vault",
+      "DefaultPort": 8200,
+      "Probes": [
+        {
+          "Description": "Vault Health",
+          "Send": "GET /v1/sys/health HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"initialized\":",
+              "Indicates": "Vault server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "MinIO",
+      "DefaultPort": 9000,
+      "Probes": [
+        {
+          "Description": "MinIO Version",
+          "Send": "GET /minio/version HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "MinIO Object Storage",
+              "Indicates": "MinIO server"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
