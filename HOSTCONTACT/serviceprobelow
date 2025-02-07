@@ -1,0 +1,351 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "FTP",
+      "DefaultPort": 21,
+      "Probes": [
+        {
+          "Description": "FTP Banner",
+          "Send": "\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^220.*FTP",
+              "Indicates": "FTP server"
+            },
+            {
+              "Pattern": "^220.*FileZilla",
+              "Indicates": "FileZilla FTP"
+            },
+            {
+              "Pattern": "^220.*vsftpd",
+              "Indicates": "vsftpd server"
+            }
+          ]
+        },
+        {
+          "Description": "FTP Anonymous Check",
+          "Send": "USER anonymous\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^331",
+              "Indicates": "Anonymous FTP allowed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "SMTP",
+      "DefaultPort": 25,
+      "Probes": [
+        {
+          "Description": "SMTP Banner",
+          "Send": "\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^220.*SMTP",
+              "Indicates": "SMTP server"
+            },
+            {
+              "Pattern": "^220.*Postfix",
+              "Indicates": "Postfix SMTP"
+            },
+            {
+              "Pattern": "^220.*Exchange",
+              "Indicates": "Exchange SMTP"
+            }
+          ]
+        },
+        {
+          "Description": "SMTP EHLO",
+          "Send": "EHLO test.com\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^250[-\\s]",
+              "Indicates": "SMTP extended commands"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "DNS",
+      "DefaultPort": 53,
+      "Probes": [
+        {
+          "Description": "DNS Version Query",
+          "Send": {
+            "HexString": "00040100000100000000000007version04bind0000100003",
+            "Explanation": "DNS version.bind chaos query"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x00\\x84",
+              "Indicates": "DNS server response"
+            }
+          ]
+        },
+        {
+          "Description": "DNS A Record Query",
+          "Send": {
+            "HexString": "0001010000010000000000000377777706676f6f676c6503636f6d0000010001",
+            "Explanation": "DNS A record query for www.google.com"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x00\\x00\\x81\\x80",
+              "Indicates": "DNS response with answer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "TFTP",
+      "DefaultPort": 69,
+      "Probes": [
+        {
+          "Description": "TFTP Read Request",
+          "Send": {
+            "HexString": "000100000000",
+            "Explanation": "TFTP read request for empty filename"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x00\\x05",
+              "Indicates": "TFTP error response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "HTTP",
+      "DefaultPort": 80,
+      "Probes": [
+        {
+          "Description": "HTTP Options",
+          "Send": "OPTIONS * HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^HTTP/[0-9]\\.[0-9] 200",
+              "Indicates": "HTTP server with OPTIONS"
+            },
+            {
+              "Pattern": "^Allow: ",
+              "Indicates": "HTTP methods allowed"
+            }
+          ]
+        },
+        {
+          "Description": "HTTP Head",
+          "Send": "HEAD / HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^HTTP/[0-9]\\.[0-9] [0-9]{3}",
+              "Indicates": "HTTP server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "POP3",
+      "DefaultPort": 110,
+      "Probes": [
+        {
+          "Description": "POP3 Banner",
+          "Send": "\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\+OK",
+              "Indicates": "POP3 server"
+            }
+          ]
+        },
+        {
+          "Description": "POP3 Capabilities",
+          "Send": "CAPA\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\+OK.*[Cc]apabilit",
+              "Indicates": "POP3 capabilities"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "IMAP",
+      "DefaultPort": 143,
+      "Probes": [
+        {
+          "Description": "IMAP Banner",
+          "Send": "\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\* OK.*IMAP",
+              "Indicates": "IMAP server"
+            }
+          ]
+        },
+        {
+          "Description": "IMAP Capabilities",
+          "Send": "A001 CAPABILITY\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\* CAPABILITY",
+              "Indicates": "IMAP capabilities"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "SNMP",
+      "DefaultPort": 161,
+      "Probes": [
+        {
+          "Description": "SNMP GetRequest",
+          "Send": {
+            "HexString": "302602010004067075626c6963a019020400000000020100020100300b300906052b060102010500",
+            "Explanation": "SNMP v1 get request with public community"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x30.*\\x02\\x01.*\\x04",
+              "Indicates": "SNMP response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "LDAP",
+      "DefaultPort": 389,
+      "Probes": [
+        {
+          "Description": "LDAP Search Request",
+          "Send": {
+            "HexString": "300c02010160070201030400800000",
+            "Explanation": "LDAP search request"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^0\\x84",
+              "Indicates": "LDAP response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "SMB",
+      "DefaultPort": 445,
+      "Probes": [
+        {
+          "Description": "SMB Protocol Negotiation",
+          "Send": {
+            "HexString": "000000854E434E53454E444E45524641534E4643474E45464E464945464E45434143414341434143414341434143414341434143414341434143414341414100",
+            "Explanation": "SMB protocol negotiation request"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x00\\x00.*\\xffSMB",
+              "Indicates": "SMB server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "HTTPS",
+      "DefaultPort": 443,
+      "Probes": [
+        {
+          "Description": "SSL/TLS Handshake",
+          "Send": {
+            "HexString": "16030100bb010000b70303",
+            "Explanation": "TLS 1.0 Client Hello"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x16\\x03",
+              "Indicates": "SSL/TLS server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "RTSP",
+      "DefaultPort": 554,
+      "Probes": [
+        {
+          "Description": "RTSP Options",
+          "Send": "OPTIONS * RTSP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "RTSP/1.0",
+              "Indicates": "RTSP server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "IPP",
+      "DefaultPort": 631,
+      "Probes": [
+        {
+          "Description": "IPP Get-Printer-Attributes",
+          "Send": "POST /ipp HTTP/1.1\r\nContent-Type: application/ipp\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Server: CUPS",
+              "Indicates": "CUPS print server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "LDAPS",
+      "DefaultPort": 636,
+      "Probes": [
+        {
+          "Description": "LDAPS Handshake",
+          "Send": {
+            "HexString": "16030100bb010000b70303",
+            "Explanation": "TLS 1.0 Client Hello for LDAPS"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x16\\x03",
+              "Indicates": "LDAPS server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "FTP over TLS",
+      "DefaultPort": 990,
+      "Probes": [
+        {
+          "Description": "FTPS Handshake",
+          "Send": {
+            "HexString": "16030100bb010000b70303",
+            "Explanation": "TLS 1.0 Client Hello for FTPS"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x16\\x03",
+              "Indicates": "FTPS server"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
