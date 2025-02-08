@@ -1,0 +1,282 @@
+{
+  "Ports": [
+    {
+      "Port": 8080,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "OpenIG",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/openig",
+            "/routes",
+            "/health",
+            "/metrics",
+            "/config",
+            "/openig/api/system",
+            "/openig/api/info",
+            "/openig/api/routes",
+            "/openig/api/monitoring",
+            "/studio",
+            "/welcome",
+            "/home",
+            "/openig-ui",
+            "/status",
+            "/version",
+            "/ping",
+            "/oauth2",
+            "/openid",
+            "/saml",
+            "/logging"
+          ],
+          "UndesirableEndpoints": [
+            "/config/config.json",
+            "/config/routes/",
+            "/config/secrets/",
+            "/config/scripts/",
+            "/config/templates/",
+            "/.openig/",
+            "/config.json",
+            "/routes.json",
+            "/admin.json",
+            "/log/",
+            "/tmp/",
+            "/scripts/",
+            "/audit/",
+            "/*.log",
+            "/*.pid",
+            "/openig.keystore",
+            "/openig.truststore",
+            "/secrets.json",
+            "/credentials.json",
+            "/private-key.pem",
+            "/certificate.pem"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 8443,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "NGINX",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/status",
+            "/nginx_status",
+            "/stub_status",
+            "/basic_status",
+            "/api",
+            "/health",
+            "/ping",
+            "/metrics",
+            "/proxy",
+            "/upstream",
+            "/server-status",
+            "/config",
+            "/stats",
+            "/cache",
+            "/version",
+            "/info",
+            "/dashboard",
+            "/admin",
+            "/monitor",
+            "/status/format/json",
+            "/nginx_vars"
+          ],
+          "UndesirableEndpoints": [
+            "/nginx.conf",
+            "/conf.d/",
+            "/sites-enabled/",
+            "/sites-available/",
+            "/ssl/",
+            "/logs/",
+            "/access.log",
+            "/error.log",
+            "/proxy_temp/",
+            "/fastcgi_temp/",
+            "/uwsgi_temp/",
+            "/scgi_temp/",
+            "/client_body_temp/",
+            "/.nginx/",
+            "/nginx.pid",
+            "/mime.types",
+            "/fastcgi_params",
+            "/proxy_params",
+            "/ssl.crt",
+            "/ssl.key",
+            "/dhparam.pem",
+            "/nginx-selfsigned.crt",
+            "/nginx-selfsigned.key"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 8000,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "HAProxy",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/haproxy",
+            "/stats",
+            "/admin",
+            "/health",
+            "/metrics",
+            "/info",
+            "/monitor",
+            "/status",
+            "/proxies",
+            "/servers",
+            "/backend",
+            "/frontend",
+            "/listeners",
+            "/errors",
+            "/cache",
+            "/sessions",
+            "/connections",
+            "/clustering",
+            "/haproxy_stats",
+            "/haproxy?stats",
+            "/haproxy/admin",
+            "/haproxy/info",
+            "/haproxy/health"
+          ],
+          "UndesirableEndpoints": [
+            "/haproxy.cfg",
+            "/errors/",
+            "/conf.d/",
+            "/ssl/",
+            "/certs/",
+            "/logs/",
+            "/haproxy.pid",
+            "/haproxy.sock",
+            "/haproxy.stat",
+            "/stats.sock",
+            "/admin.sock",
+            "/errors.log",
+            "/access.log",
+            "/haproxy.log",
+            "/.haproxy/",
+            "/ca-certificates/",
+            "/custom-errors/",
+            "/error-pages/",
+            "/maps/",
+            "/lua-scripts/"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 80,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Traefik",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/api",
+            "/dashboard",
+            "/ping",
+            "/metrics",
+            "/api/rawdata",
+            "/api/version",
+            "/api/providers",
+            "/api/http/routers",
+            "/api/http/services",
+            "/api/http/middlewares",
+            "/api/entrypoints",
+            "/api/overview",
+            "/debug/vars",
+            "/debug/pprof",
+            "/health",
+            "/prometheus",
+            "/stats",
+            "/monitor",
+            "/proxy",
+            "/websecure"
+          ],
+          "UndesirableEndpoints": [
+            "/traefik.yml",
+            "/traefik.toml",
+            "/config.yml",
+            "/dynamic.yml",
+            "/acme.json",
+            "/certificates/",
+            "/logs/",
+            "/ssl/",
+            "/providers/",
+            "/traefik.log",
+            "/access.log",
+            "/error.log",
+            "/traefik.pid",
+            "/.traefik/",
+            "/private/",
+            "/tls/",
+            "/secrets/",
+            "/dynamic-conf/",
+            "/file-provider/",
+            "/rules.toml"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 9901,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Envoy",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/admin",
+            "/config_dump",
+            "/clusters",
+            "/listeners",
+            "/stats",
+            "/stats/prometheus",
+            "/server_info",
+            "/runtime",
+            "/health",
+            "/ready",
+            "/logging",
+            "/metrics",
+            "/certs",
+            "/config",
+            "/contour",
+            "/routes",
+            "/bootstrap",
+            "/profiling",
+            "/memory",
+            "/quitquitquit"
+          ],
+          "UndesirableEndpoints": [
+            "/envoy.yaml",
+            "/envoy.json",
+            "/certs/",
+            "/config/",
+            "/logs/",
+            "/ssl/",
+            "/runtime/",
+            "/envoy.log",
+            "/access.log",
+            "/error.log",
+            "/admin.log",
+            "/envoy.pid",
+            "/.envoy/",
+            "/secrets/",
+            "/listeners.json",
+            "/clusters.json",
+            "/bootstrap.json",
+            "/runtime_dump",
+            "/config_dump.json",
+            "/admin.sock"
+          ]
+        }
+      ]
+    }
+  ]
+}
