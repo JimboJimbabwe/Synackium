@@ -1,0 +1,92 @@
+{
+  "subdomainMappings": [
+    {
+      "subdomain": "mail",
+      "description": "Email services",
+      "commonPorts": [
+        {"port": 25, "service": "SMTP"},
+        {"port": 587, "service": "Submission (SMTP)"},
+        {"port": 465, "service": "SMTPS"},
+        {"port": 143, "service": "IMAP"},
+        {"port": 993, "service": "IMAPS"},
+        {"port": 110, "service": "POP3"},
+        {"port": 995, "service": "POP3S"}
+      ]
+    },
+    {
+      "subdomain": "ftp",
+      "description": "File transfer services",
+      "commonPorts": [
+        {"port": 21, "service": "FTP control"},
+        {"port": 20, "service": "FTP data"},
+        {"port": 990, "service": "FTPS"}
+      ]
+    },
+    {
+      "subdomain": "files",
+      "description": "File sharing services",
+      "commonPorts": [
+        {"port": 445, "service": "SMB"},
+        {"port": 139, "service": "NetBIOS"},
+        {"port": 2049, "service": "NFS"}
+      ]
+    },
+    {
+      "subdomain": "ldap",
+      "description": "Directory services",
+      "commonPorts": [
+        {"port": 389, "service": "LDAP"},
+        {"port": 636, "service": "LDAPS"}
+      ]
+    },
+    {
+      "subdomain": "www",
+      "description": "Web services",
+      "commonPorts": [
+        {"port": 80, "service": "HTTP"},
+        {"port": 443, "service": "HTTPS"}
+      ]
+    },
+    {
+      "subdomain": "vpn",
+      "description": "VPN services",
+      "commonPorts": [
+        {"port": 1194, "service": "OpenVPN"},
+        {"port": 500, "service": "ISAKMP/IKE"},
+        {"port": 4500, "service": "IPSec NAT-T"}
+      ]
+    },
+    {
+      "subdomain": "admin",
+      "description": "Administrative interfaces",
+      "commonPorts": [
+        {"port": 8080, "service": "HTTP alternate"},
+        {"port": 8443, "service": "HTTPS alternate"}
+      ]
+    },
+    {
+      "subdomain": "db",
+      "description": "Database services",
+      "commonPorts": [
+        {"port": 3306, "service": "MySQL"},
+        {"port": 5432, "service": "PostgreSQL"},
+        {"port": 27017, "service": "MongoDB"}
+      ]
+    },
+    {
+      "subdomain": "ntp",
+      "description": "Time synchronization",
+      "commonPorts": [
+        {"port": 123, "service": "NTP"}
+      ]
+    },
+    {
+      "subdomain": "git",
+      "description": "Version control",
+      "commonPorts": [
+        {"port": 9418, "service": "Git"},
+        {"port": 22, "service": "SSH (Git)"}
+      ]
+    }
+  ]
+}
