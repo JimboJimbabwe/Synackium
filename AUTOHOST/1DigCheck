@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+import argparse
+import json
+import subprocess
+import ipaddress
+from pathlib import Path
+from typing import List, Dict, Tuple
+
+def validate_ip(ip: str) -> bool:
+    """Validate if a string is a valid IP address."""
+    try:
+        ipaddress.ip_address(ip.strip())
+        return True
+    except ValueError:
+        return False
+
+def perform_dig_lookup(ip: str) -> str:
+    """
+    Perform reverse DNS lookup using dig command.
+    Returns domain name if resolved, None if unresolved.
+    """
+    try:
+        # Construct reverse DNS query
+        reverse_ip = '.'.join(reversed(ip.split('.'))) + '.in-addr.arpa'
+        result = subprocess.run(
+            ['dig', '+short', reverse_ip, 'PTR'],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        
+        domain = result.stdout.strip()
+        return domain if domain else None
+    except subprocess.TimeoutExpired:
+        return None
+    except subprocess.SubprocessError:
+        return None
+
+def process_ip_file(filepath: Path) -> Tuple[List[Dict], List[Dict]]:
+    """
+    Process a single IP file and return resolved and unresolved results.
+    """
+    resolved = []
+    unresolved = []
+    
+    with open(filepath, 'r') as f:
+        for line in f:
+            ip = line.strip()
+            if not validate_ip(ip):
+                print(f"Warning: Invalid IP address found: {ip}")
+                continue
+                
+            domain = perform_dig_lookup(ip)
+            entry = {
+                "IP": ip,
+                "ResolvedDomain": domain
+            }
+            
+            if domain:
+                resolved.append(entry)
+            else:
+                unresolved.append(entry)
+    
+    return resolved, unresolved
+
+def save_results(data: List[Dict], output_path: Path):
+    """Save results to a JSON file."""
+    with open(output_path, 'w') as f:
+        json.dump(data, f, indent=2)
+
+def main():
+    parser = argparse.ArgumentParser(description='Process IP files for DNS resolution')
+    parser.add_argument(
+        'files',
+        nargs='+',
+        type=str,
+        help='One or more files containing IP addresses (one per line)'
+    )
+    
+    args = parser.parse_args()
+    
+    for file_path in args.files:
+        path = Path(file_path)
+        if not path.exists():
+            print(f"Error: File not found: {file_path}")
+            continue
+            
+        print(f"Processing {path.name}...")
+        
+        # Generate output filenames
+        base_name = path.stem
+        resolved_output = Path(f"{base_name}Resolved.json")
+        unresolved_output = Path(f"{base_name}Unresolved.json")
+        
+        # Process the file
+        resolved, unresolved = process_ip_file(path)
+        
+        # Save results
+        save_results(resolved, resolved_output)
+        save_results(unresolved, unresolved_output)
+        
+        print(f"Results saved to {resolved_output} and {unresolved_output}")
+        print(f"Resolved: {len(resolved)}, Unresolved: {len(unresolved)}")
+
+if __name__ == "__main__":
+    main()
