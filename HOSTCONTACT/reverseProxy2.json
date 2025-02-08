@@ -1,0 +1,426 @@
+{
+  "Ports": [
+    {
+      "Port": 3128,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Squid",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/squid-internal-mgr/",
+            "/cache_object",
+            "/mgr",
+            "/mgr/5min",
+            "/mgr/60min",
+            "/mgr/active_requests",
+            "/mgr/cache_manager",
+            "/mgr/client_list",
+            "/mgr/config",
+            "/mgr/counters",
+            "/mgr/digest_stats",
+            "/mgr/dns_stats",
+            "/mgr/info",
+            "/mgr/io",
+            "/mgr/mem",
+            "/mgr/objects",
+            "/mgr/server_list",
+            "/mgr/utilization",
+            "/mgr/via_headers"
+          ],
+          "UndesirableEndpoints": [
+            "/squid.conf",
+            "/cachemgr.conf",
+            "/passwd",
+            "/errorpage.css",
+            "/mime.conf",
+            "/ssl_cert",
+            "/ssl_key",
+            "/logs/",
+            "/cache/",
+            "/ssl/",
+            "/errors/",
+            "/icons/",
+            "/squid.pid",
+            "/access.log",
+            "/cache.log",
+            "/store.log",
+            "/.squid/",
+            "/squid_session",
+            "/cert_db/",
+            "/ssl_db/"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 8888,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Tinyproxy",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/proxy",
+            "/status",
+            "/stats",
+            "/admin",
+            "/monitor",
+            "/blocked",
+            "/filtered",
+            "/connections",
+            "/config",
+            "/upstream",
+            "/tinyproxy",
+            "/health",
+            "/metrics",
+            "/version",
+            "/info",
+            "/pid",
+            "/uptime",
+            "/memory",
+            "/threads"
+          ],
+          "UndesirableEndpoints": [
+            "/tinyproxy.conf",
+            "/config/",
+            "/logs/",
+            "/ssl/",
+            "/filter/",
+            "/tinyproxy.pid",
+            "/tinyproxy.log",
+            "/access.log",
+            "/error.log",
+            "/.tinyproxy/",
+            "/passwd",
+            "/upstream.conf",
+            "/filter.conf",
+            "/blocked.conf",
+            "/cert.pem",
+            "/key.pem",
+            "/group",
+            "/secret"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 8082,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Caddy",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/status",
+            "/metrics",
+            "/health",
+            "/debug/pprof",
+            "/debug/vars",
+            "/version",
+            "/config",
+            "/load",
+            "/stop",
+            "/admin",
+            "/admin/path",
+            "/admin/load",
+            "/admin/config",
+            "/admin/reload",
+            "/admin/upgrade",
+            "/admin/stopserver",
+            "/metrics/prometheus",
+            "/metrics/basic",
+            "/reverse_proxy"
+          ],
+          "UndesirableEndpoints": [
+            "/Caddyfile",
+            "/caddy.json",
+            "/config/",
+            "/logs/",
+            "/ssl/",
+            "/autosave/",
+            "/caddy.pid",
+            "/access.log",
+            "/error.log",
+            "/.caddy/",
+            "/certificates/",
+            "/acme/",
+            "/secrets/",
+            "/private/",
+            "/data/",
+            "/.config/caddy/",
+            "/autosave.json",
+            "/id",
+            "/admin.sock"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 8001,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Kong",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/status",
+            "/health",
+            "/metrics",
+            "/config",
+            "/kong-admin",
+            "/apis",
+            "/consumers",
+            "/plugins",
+            "/certificates",
+            "/snis",
+            "/upstreams",
+            "/targets",
+            "/routes",
+            "/services",
+            "/cache",
+            "/clustering",
+            "/connections",
+            "/node",
+            "/proxy-cache",
+            "/vitals"
+          ],
+          "UndesirableEndpoints": [
+            "/kong.conf",
+            "/kong.yml",
+            "/nginx.conf",
+            "/nginx-kong.conf",
+            "/logs/",
+            "/ssl/",
+            "/kong.pid",
+            "/access.log",
+            "/error.log",
+            "/.kong/",
+            "/certificates/",
+            "/secrets/",
+            "/private/",
+            "/data/",
+            "/declarative/",
+            "/clustering/",
+            "/client_body_temp/",
+            "/kong_prefix/",
+            "/kong_db.sql"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 9000,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Apache Traffic Server",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/_stats",
+            "/_ping",
+            "/_config",
+            "/_admin",
+            "/_monitor",
+            "/_health",
+            "/_cache",
+            "/_remap",
+            "/_metrics",
+            "/_cluster",
+            "/_hostname",
+            "/_hostdb",
+            "/_records",
+            "/_storage",
+            "/_memory",
+            "/_plugins",
+            "/_ssl",
+            "/_acl",
+            "/_regex",
+            "/_logging"
+          ],
+          "UndesirableEndpoints": [
+            "/records.config",
+            "/storage.config",
+            "/hosting.config",
+            "/plugin.config",
+            "/ssl_multicert.config",
+            "/logs/",
+            "/ssl/",
+            "/cache/",
+            "/trafficserver.pid",
+            "/access.log",
+            "/error.log",
+            "/diags.log",
+            "/.trafficserver/",
+            "/certs/",
+            "/keys/",
+            "/snapshots/",
+            "/body_factory/",
+            "/tmp/",
+            "/config_body.log"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 8081,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Varnish",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/varnish",
+            "/stats",
+            "/status",
+            "/health",
+            "/ping",
+            "/metrics",
+            "/config",
+            "/vcl",
+            "/ban",
+            "/panic",
+            "/storage",
+            "/backend",
+            "/director",
+            "/purge",
+            "/cache",
+            "/admin",
+            "/debug",
+            "/params",
+            "/vsl",
+            "/vsm"
+          ],
+          "UndesirableEndpoints": [
+            "/default.vcl",
+            "/secret",
+            "/varnish.pid",
+            "/varnishlog",
+            "/varnishncsa",
+            "/varnishtop",
+            "/varnishhist",
+            "/varnishstat",
+            "/logs/",
+            "/cache/",
+            "/vsm/",
+            "/vsl/",
+            "/.varnish/",
+            "/admin_socket",
+            "/backend.conf",
+            "/acl.conf",
+            "/secret.keys",
+            "/varnish.params",
+            "/varnish.boot"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 11211,
+      "Protocol": "TCP",
+      "PotentialServices": [
+        {
+          "Service": "Privoxy",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/show-status",
+            "/show-version",
+            "/show-request",
+            "/show-url-info",
+            "/show-defining-toggle",
+            "/toggle",
+            "/client-tags",
+            "/client-settings",
+            "/blocked",
+            "/filters",
+            "/edit-actions",
+            "/config",
+            "/admin",
+            "/status",
+            "/health",
+            "/metrics",
+            "/info",
+            "/settings",
+            "/stats",
+            "/monitor"
+          ],
+          "UndesirableEndpoints": [
+            "/config.txt",
+            "/privoxy.conf",
+            "/trust",
+            "/user.action",
+            "/user.filter",
+            "/match-all.action",
+            "/default.action",
+            "/default.filter",
+            "/logs/",
+            "/ssl/",
+            "/privoxy.pid",
+            "/logfile",
+            "/jarfile",
+            "/errorfile",
+            "/.privoxy/",
+            "/passwords",
+            "/trust.txt",
+            "/templates/",
+            "/certs/"
+          ]
+        }
+      ]
+    },
+    {
+      "Port": 8085,
+      "Protocol": "HTTP",
+      "PotentialServices": [
+        {
+          "Service": "Apache APISIX",
+          "DefaultEndpoints": ["/"],
+          "CommonEndpoints": [
+            "/apisix/admin",
+            "/apisix/status",
+            "/apisix/prometheus",
+            "/apisix/control",
+            "/apisix/dashboard",
+            "/apisix/routes",
+            "/apisix/services",
+            "/apisix/consumers",
+            "/apisix/upstreams",
+            "/apisix/ssl",
+            "/apisix/plugins",
+            "/apisix/stream_routes",
+            "/apisix/proto",
+            "/apisix/global_rules",
+            "/apisix/consumer_groups",
+            "/apisix/plugin_metadata",
+            "/apisix/plugin_configs",
+            "/apisix/cluster",
+            "/apisix/health",
+            "/apisix/metrics"
+          ],
+          "UndesirableEndpoints": [
+            "/conf/config.yaml",
+            "/conf/apisix.yaml",
+            "/conf/debug.yaml",
+            "/logs/",
+            "/ssl/",
+            "/certs/",
+            "/apisix.pid",
+            "/access.log",
+            "/error.log",
+            "/.apisix/",
+            "/conf/cert/",
+            "/conf/ssl/",
+            "/conf/secrets/",
+            "/conf/private/",
+            "/etcd/",
+            "/vault/",
+            "/prometheus/",
+            "/dashboard.yaml",
+            "/debug.yaml",
+            "/config_dump.json"
+          ]
+        }
+      ]
+    }
+  ]
+}
