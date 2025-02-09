@@ -35,3 +35,17 @@ Hypo(Run ServiceProbeScanner.py)
   - Sends service probes in jsons read to services that match the Ports in the given JSON Item of the IP in iteration
 
 This will be deprecated. Soon
+-------------------------------------------------------------------------------------------
+Above Meta Deprecated
+-------------------------------------------------------------------------------------------
+
+Run 1NMAPSonic.py
+  Yield: IP, DNS Reso, Ports, Services
+
+Run 2ServiceProbeAuto.py IPBank.json /Path/To/Service/Probe/Directory
+
+TODO - Make a Script to then scan services, and do curl for Common, Undes'd, endpoints from HOSTCONTACT/some.json file - like objectively you know what I mean fella you know which one just make sure you orient and organize it.
+
+Visualize:
+Run DeepSeekGUI.py or ClaudeGUI.py
+
