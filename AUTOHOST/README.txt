@@ -46,6 +46,9 @@ Run 2ServiceProbeAuto.py IPBank.json /Path/To/Service/Probe/Directory
 
 TODO - Make a Script to then scan services, and do curl for Common, Undes'd, endpoints from HOSTCONTACT/some.json file - like objectively you know what I mean fella you know which one just make sure you orient and organize it.
 
+HosterJSONFull, PopularRevProxies.json, reverseProxy1.json, reverseProxy2.json 
+Basically the same script you made "2ServiceProbeAuto.py" IPBank.json /Path/To/Endpoints/Test/Bank/Directory
+
 Visualize:
 Run DeepSeekGUI.py or ClaudeGUI.py
 
