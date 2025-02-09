@@ -1,0 +1,303 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "SSH",
+      "DefaultPort": 22,
+      "Probes": [
+        {
+          "Description": "SSH Version",
+          "Send": "SSH-2.0-OpenSSH_8.1\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^SSH-2\\.0-OpenSSH_",
+              "Indicates": "OpenSSH server"
+            },
+            {
+              "Pattern": "^SSH-2\\.0-Dropbear",
+              "Indicates": "Dropbear SSH server"
+            },
+            {
+              "Pattern": "^SSH-2\\.0-PuTTY",
+              "Indicates": "PuTTY SSH server"
+            },
+            {
+              "Pattern": "^SSH-2\\.0-WeOnlyDo",
+              "Indicates": "WinSSHD server"
+            },
+            {
+              "Pattern": "^SSH-2\\.0-BitVise",
+              "Indicates": "BitVise SSH server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "LDAP",
+      "DefaultPort": 389,
+      "Probes": [
+        {
+          "Description": "LDAP Search Request",
+          "Send": {
+            "HexString": "300c02010160070201030400800000",
+            "Explanation": "LDAP search request"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^0\\x84",
+              "Indicates": "LDAP response"
+            }
+          ]
+        },
+        {
+          "Description": "LDAP Root DSE",
+          "Send": {
+            "HexString": "301c0201016017020103040b6f626a656374436c61737330070a0100",
+            "Explanation": "LDAP root DSE query"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "supportedLDAPVersion",
+              "Indicates": "LDAP root DSE"
+            }
+          ]
+        },
+        {
+          "Description": "LDAP Bind Request",
+          "Send": {
+            "HexString": "3034020101602f020103042B644e3d61646d696e2c64633d6578616d706c652c64633d636f6d",
+            "Explanation": "LDAP anonymous bind request"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x0a\\x01\\x00",
+              "Indicates": "LDAP bind success"
+            },
+            {
+              "Pattern": "\\x0a\\x01\\x31",
+              "Indicates": "LDAP bind failure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "LDAPS",
+      "DefaultPort": 636,
+      "Probes": [
+        {
+          "Description": "LDAPS Handshake",
+          "Send": {
+            "HexString": "16030100bb010000b70303",
+            "Explanation": "TLS 1.0 Client Hello for LDAPS"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x16\\x03",
+              "Indicates": "LDAPS server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "SNMP",
+      "DefaultPort": 161,
+      "Probes": [
+        {
+          "Description": "SNMP GetRequest",
+          "Send": {
+            "HexString": "302602010004067075626c6963a019020400000000020100020100300b300906052b060102010500",
+            "Explanation": "SNMP v1 get request with public community"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x30.*\\x02\\x01.*\\x04",
+              "Indicates": "SNMP response"
+            }
+          ]
+        },
+        {
+          "Description": "SNMP v3 Probe",
+          "Send": {
+            "HexString": "3029020103300e020100020300ffe304010102010304010301040f30000400",
+            "Explanation": "SNMPv3 get request"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x30.*\\x02\\x01\\x03",
+              "Indicates": "SNMPv3 agent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "NTP",
+      "DefaultPort": 123,
+      "Probes": [
+        {
+          "Description": "NTP Version Query",
+          "Send": {
+            "HexString": "1b00042a0000000000000000",
+            "Explanation": "NTP version query"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x1c",
+              "Indicates": "NTP server"
+            }
+          ]
+        },
+        {
+          "Description": "NTP Control Query",
+          "Send": {
+            "HexString": "160200000000000000000000",
+            "Explanation": "NTP control query"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x16",
+              "Indicates": "NTP control response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "RADIUS",
+      "DefaultPort": 1812,
+      "Probes": [
+        {
+          "Description": "RADIUS Access Request",
+          "Send": {
+            "HexString": "01000014000000000000000000000000",
+            "Explanation": "RADIUS access request packet"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x02",
+              "Indicates": "RADIUS access reject"
+            },
+            {
+              "Pattern": "^\\x03",
+              "Indicates": "RADIUS access challenge"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "RPC",
+      "DefaultPort": 111,
+      "Probes": [
+        {
+          "Description": "RPC Null Call",
+          "Send": {
+            "HexString": "80000028000000000000000000000002000186a0000000020000000000000000000000000000000000000000",
+            "Explanation": "RPC null call"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x80\\x00\\x00",
+              "Indicates": "RPC response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "IPMI",
+      "DefaultPort": 623,
+      "Probes": [
+        {
+          "Description": "IPMI Get Channel Auth",
+          "Send": {
+            "HexString": "0600ff07000000000000000000000000",
+            "Explanation": "IPMI RMCP ping"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x06\\x00\\xff\\x07",
+              "Indicates": "IPMI BMC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Kerberos",
+      "DefaultPort": 88,
+      "Probes": [
+        {
+          "Description": "Kerberos AS-REQ",
+          "Send": {
+            "HexString": "6a81a53081a2a103020105a20302010aa30e300c300aa103020101a203020102a4818930818602018aa181800201ffa08102046b726274677430173015a003020101a10e040c4558414d504c452e434f4d6e82166c6f63616c686f73742e6c6f63616c646f6d61696ea481163014a003020101a10d040b41646d696e6973747261",
+            "Explanation": "Kerberos AS-REQ packet"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x6a",
+              "Indicates": "Kerberos KDC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "SMB",
+      "DefaultPort": 445,
+      "Probes": [
+        {
+          "Description": "SMB Negotiate Protocol",
+          "Send": {
+            "HexString": "000000a4ff534d4272000000001843c80000000000000000000000000000fffe00000000000000000000000000000000000000000000000000000000000000000024000500010000007f000000d95110535aafd5010000000000000000000000000000000000000000000000020002000100020003002e0002002e00",
+            "Explanation": "SMBv2 negotiate protocol request"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^\\x00\\x00.*\\xfe\\x53\\x4d\\x42",
+              "Indicates": "SMB2 server"
+            },
+            {
+              "Pattern": "^\\x00\\x00.*\\xff\\x53\\x4d\\x42",
+              "Indicates": "SMB1 server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "IMAP",
+      "DefaultPort": 143,
+      "Probes": [
+        {
+          "Description": "IMAP Capability",
+          "Send": "A001 CAPABILITY\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\* CAPABILITY",
+              "Indicates": "IMAP server capabilities"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "POP3",
+      "DefaultPort": 110,
+      "Probes": [
+        {
+          "Description": "POP3 Capability",
+          "Send": "CAPA\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\+OK",
+              "Indicates": "POP3 server capabilities"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "HAProxy",
+      "DefaultPort": 8000,
+      "Probes": [
+        {
+          "Description": "HAProxy Stats Page",
+          "Send": "GET /haproxy?stats HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "HAProxy Statistics",
+              "Indicates": "HAProxy stats page"
+            }
+          ]
+        },
+        {
+          "Description": "HAProxy Stats CSV",
+          "Send": "GET /haproxy?stats;csv HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^# pxname,svname",
+              "Indicates": "HAProxy CSV stats"
+            }
+          ]
+        },
+        {
+          "Description": "HAProxy Info",
+          "Send": "GET /info HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "HAProxy version",
+              "Indicates": "HAProxy info page"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Traefik",
+      "DefaultPort": 80,
+      "Probes": [
+        {
+          "Description": "Traefik Dashboard",
+          "Send": "GET /dashboard/ HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Traefik",
+              "Indicates": "Traefik dashboard"
+            }
+          ]
+        },
+        {
+          "Description": "Traefik API",
+          "Send": "GET /api/version HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"Version\":",
+              "Indicates": "Traefik API"
+            }
+          ]
+        },
+        {
+          "Description": "Traefik Health",
+          "Send": "GET /ping HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^ok$",
+              "Indicates": "Traefik health check"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Envoy",
+      "DefaultPort": 9901,
+      "Probes": [
+        {
+          "Description": "Envoy Admin Interface",
+          "Send": "GET /server_info HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "version",
+              "Indicates": "Envoy admin interface"
+            }
+          ]
+        },
+        {
+          "Description": "Envoy Stats",
+          "Send": "GET /stats HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "cluster_manager",
+              "Indicates": "Envoy stats"
+            }
+          ]
+        },
+        {
+          "Description": "Envoy Clusters",
+          "Send": "GET /clusters HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "cluster::",
+              "Indicates": "Envoy clusters info"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "OpenIG",
+      "DefaultPort": 8080,
+      "Probes": [
+        {
+          "Description": "OpenIG API",
+          "Send": "GET /openig/api/system/info HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"version\":",
+              "Indicates": "OpenIG API"
+            }
+          ]
+        },
+        {
+          "Description": "OpenIG Routes",
+          "Send": "GET /openig/api/routes HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"_id\":",
+              "Indicates": "OpenIG routes API"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

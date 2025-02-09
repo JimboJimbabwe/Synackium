@@ -1,0 +1,292 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "MySQL",
+      "DefaultPort": 3306,
+      "Probes": [
+        {
+          "Description": "MySQL Handshake",
+          "Send": {
+            "HexString": "200000018521000000000000000000000000000000000000000000000000000000000000000000000000",
+            "Explanation": "Client handshake initialization packet"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^.\\x00\\x00\\x00\\x0a(5\\.|8\\.)",
+              "Indicates": "MySQL server version"
+            },
+            {
+              "Pattern": "mysql_native_password",
+              "Indicates": "MySQL with native auth"
+            },
+            {
+              "Pattern": "caching_sha2_password",
+              "Indicates": "MySQL with SHA2 auth"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "MariaDB",
+      "DefaultPort": 3306,
+      "Probes": [
+        {
+          "Description": "MariaDB Handshake",
+          "Send": {
+            "HexString": "200000018521000000000000000000000000000000000000000000000000000000000000000000000000",
+            "Explanation": "Client handshake initialization packet"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "mariadb",
+              "Indicates": "MariaDB server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "PostgreSQL",
+      "DefaultPort": 5432,
+      "Probes": [
+        {
+          "Description": "PostgreSQL Startup",
+          "Send": {
+            "HexString": "000000080000000400000000",
+            "Explanation": "SSL request packet"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^S",
+              "Indicates": "PostgreSQL with SSL"
+            },
+            {
+              "Pattern": "^N",
+              "Indicates": "PostgreSQL without SSL"
+            }
+          ]
+        },
+        {
+          "Description": "PostgreSQL Version Query",
+          "Send": {
+            "HexString": "00000021000300007573657200706F737467726573000000",
+            "Explanation": "Version query packet"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "PostgreSQL",
+              "Indicates": "PostgreSQL version info"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "MongoDB",
+      "DefaultPort": 27017,
+      "Probes": [
+        {
+          "Description": "MongoDB isMaster",
+          "Send": {
+            "HexString": "3900000000000000000000000000FFFFFFFF430000000000000000000100000000000000696E7465726E616C2E69734D6173746572000000000000F03F00",
+            "Explanation": "Binary message requesting isMaster status"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"ismaster\" : true",
+              "Indicates": "MongoDB primary"
+            },
+            {
+              "Pattern": "\"ismaster\" : false",
+              "Indicates": "MongoDB secondary"
+            }
+          ]
+        },
+        {
+          "Description": "MongoDB Server Status",
+          "Send": {
+            "HexString": "4300000002000000000000000000FFFFFFFF440000000000000000000100000000000000616464696E676F2E73657276657253746174757300000000000000F03F00",
+            "Explanation": "Binary message requesting server status"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"version\":",
+              "Indicates": "MongoDB server status"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Redis",
+      "DefaultPort": 6379,
+      "Probes": [
+        {
+          "Description": "Redis INFO Command",
+          "Send": "*1\r\n$4\r\nINFO\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "redis_version:",
+              "Indicates": "Redis server"
+            }
+          ]
+        },
+        {
+          "Description": "Redis PING",
+          "Send": "*1\r\n$4\r\nPING\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "+PONG",
+              "Indicates": "Redis server responding"
+            }
+          ]
+        },
+        {
+          "Description": "Redis Role Check",
+          "Send": "*1\r\n$4\r\nROLE\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "*3\r\n+master",
+              "Indicates": "Redis master"
+            },
+            {
+              "Pattern": "*5\r\n+slave",
+              "Indicates": "Redis replica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Cassandra",
+      "DefaultPort": 9042,
+      "Probes": [
+        {
+          "Description": "Cassandra CQL Protocol",
+          "Send": {
+            "HexString": "040000000B00000000",
+            "Explanation": "CQL protocol version negotiation"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x04\\x00\\x00\\x00\\x00",
+              "Indicates": "Cassandra CQL response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "CouchDB",
+      "DefaultPort": 5984,
+      "Probes": [
+        {
+          "Description": "CouchDB Info",
+          "Send": "GET / HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"couchdb\":\"Welcome\"",
+              "Indicates": "CouchDB server"
+            }
+          ]
+        },
+        {
+          "Description": "CouchDB Version",
+          "Send": "GET /_utils HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Fauxton",
+              "Indicates": "CouchDB Fauxton interface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Neo4j",
+      "DefaultPort": 7687,
+      "Probes": [
+        {
+          "Description": "Neo4j Bolt Protocol",
+          "Send": {
+            "HexString": "6060B017",
+            "Explanation": "Bolt protocol handshake"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x00\\x00\\x00\\x01",
+              "Indicates": "Neo4j Bolt protocol"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "InfluxDB",
+      "DefaultPort": 8086,
+      "Probes": [
+        {
+          "Description": "InfluxDB Ping",
+          "Send": "GET /ping HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "X-Influxdb-Version:",
+              "Indicates": "InfluxDB server"
+            }
+          ]
+        },
+        {
+          "Description": "InfluxDB Health",
+          "Send": "GET /health HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"status\":\"pass\"",
+              "Indicates": "InfluxDB healthy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Elasticsearch",
+      "DefaultPort": 9200,
+      "Probes": [
+        {
+          "Description": "Elasticsearch Info",
+          "Send": "GET / HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"cluster_name\"\\s*:",
+              "Indicates": "Elasticsearch node"
+            },
+            {
+              "Pattern": "\"version\"\\s*:\\s*{\\s*\"number\"\\s*:",
+              "Indicates": "Elasticsearch with version info"
+            }
+          ]
+        },
+        {
+          "Description": "Elasticsearch Health",
+          "Send": "GET /_cluster/health HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"status\":\\s*(\"green\"|\"yellow\"|\"red\")",
+              "Indicates": "Elasticsearch cluster health"
+            }
+          ]
+        },
+        {
+          "Description": "Elasticsearch Stats",
+          "Send": "GET /_stats HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"_all\":",
+              "Indicates": "Elasticsearch stats"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

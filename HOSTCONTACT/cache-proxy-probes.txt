@@ -1,0 +1,108 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "Varnish",
+      "DefaultPort": 8081,
+      "Probes": [
+        {
+          "Description": "Varnish Status",
+          "Send": "GET /varnish_status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "varnish.stats",
+              "Indicates": "Varnish status page"
+            }
+          ]
+        },
+        {
+          "Description": "Varnish Admin",
+          "Send": "GET /admin/status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Varnish Cache",
+              "Indicates": "Varnish admin interface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Squid",
+      "DefaultPort": 3128,
+      "Probes": [
+        {
+          "Description": "Squid Cache Manager",
+          "Send": "GET /squid-internal-mgr/info HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Squid Object Cache",
+              "Indicates": "Squid cache manager"
+            }
+          ]
+        },
+        {
+          "Description": "Squid Version",
+          "Send": "GET /squid-internal-mgr/version HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Squid Version",
+              "Indicates": "Squid version info"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Tinyproxy",
+      "DefaultPort": 8888,
+      "Probes": [
+        {
+          "Description": "Tinyproxy Status",
+          "Send": "GET /status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Tinyproxy Stats",
+              "Indicates": "Tinyproxy status page"
+            }
+          ]
+        },
+        {
+          "Description": "Tinyproxy Stats",
+          "Send": "GET /stats HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Tinyproxy Statistics",
+              "Indicates": "Tinyproxy statistics"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Privoxy",
+      "DefaultPort": 11211,
+      "Probes": [
+        {
+          "Description": "Privoxy Status",
+          "Send": "GET /show-status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Privoxy Status",
+              "Indicates": "Privoxy status page"
+            }
+          ]
+        },
+        {
+          "Description": "Privoxy Version",
+          "Send": "GET /show-version HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Privoxy version",
+              "Indicates": "Privoxy version info"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "RabbitMQ",
+      "DefaultPort": 5672,
+      "Probes": [
+        {
+          "Description": "AMQP Protocol Header",
+          "Send": {
+            "HexString": "414D515001000000",
+            "Explanation": "AMQP protocol header"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "^AMQP\\x00\\x00\\x09\\x01",
+              "Indicates": "RabbitMQ AMQP 0-9-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Kafka",
+      "DefaultPort": 9092,
+      "Probes": [
+        {
+          "Description": "Kafka API Version Request",
+          "Send": {
+            "HexString": "0000002100000000000000000018000000000000096B61666B612D726571000000000000",
+            "Explanation": "ApiVersions request"
+          },
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\x00\\x00\\x00.*\\x00\\x00\\x00\\x00",
+              "Indicates": "Kafka broker response"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Memcached",
+      "DefaultPort": 11211,
+      "Probes": [
+        {
+          "Description": "Memcached Version",
+          "Send": "version\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^VERSION ",
+              "Indicates": "Memcached server"
+            }
+          ]
+        },
+        {
+          "Description": "Memcached Stats",
+          "Send": "stats\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^STAT pid",
+              "Indicates": "Memcached server stats"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Elasticsearch",
+      "DefaultPort": 9200,
+      "Probes": [
+        {
+          "Description": "Elasticsearch Info",
+          "Send": "GET / HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"cluster_name\"\\s*:",
+              "Indicates": "Elasticsearch node"
+            },
+            {
+              "Pattern": "\"version\"\\s*:\\s*{\\s*\"number\"\\s*:",
+              "Indicates": "Elasticsearch with version info"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

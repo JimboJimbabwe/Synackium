@@ -1,0 +1,178 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "Kong",
+      "DefaultPort": 8001,
+      "Probes": [
+        {
+          "Description": "Kong Admin API",
+          "Send": "GET / HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"node_id\":",
+              "Indicates": "Kong admin API"
+            }
+          ]
+        },
+        {
+          "Description": "Kong Status",
+          "Send": "GET /status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"database\":",
+              "Indicates": "Kong status endpoint"
+            }
+          ]
+        },
+        {
+          "Description": "Kong Health",
+          "Send": "GET /health HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"status\":\"ok\"",
+              "Indicates": "Kong health check"
+            }
+          ]
+        },
+        {
+          "Description": "Kong Configuration",
+          "Send": "GET /config HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"configuration\":",
+              "Indicates": "Kong configuration"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Apache APISIX",
+      "DefaultPort": 8085,
+      "Probes": [
+        {
+          "Description": "APISIX Admin API",
+          "Send": "GET /apisix/admin HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "APISIX",
+              "Indicates": "APISIX admin interface"
+            }
+          ]
+        },
+        {
+          "Description": "APISIX Status",
+          "Send": "GET /apisix/status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"status\":",
+              "Indicates": "APISIX status"
+            }
+          ]
+        },
+        {
+          "Description": "APISIX Metrics",
+          "Send": "GET /apisix/prometheus HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "apisix_",
+              "Indicates": "APISIX metrics"
+            }
+          ]
+        },
+        {
+          "Description": "APISIX Routes",
+          "Send": "GET /apisix/admin/routes HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"list\":",
+              "Indicates": "APISIX routes list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Apache Traffic Server",
+      "DefaultPort": 9000,
+      "Probes": [
+        {
+          "Description": "Traffic Server Stats",
+          "Send": "GET /_stats HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "traffic_server",
+              "Indicates": "Traffic Server stats"
+            }
+          ]
+        },
+        {
+          "Description": "Traffic Server Config",
+          "Send": "GET /_config HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "configuration",
+              "Indicates": "Traffic Server config"
+            }
+          ]
+        },
+        {
+          "Description": "Traffic Server Health",
+          "Send": "GET /_health HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "ok",
+              "Indicates": "Traffic Server health"
+            }
+          ]
+        },
+        {
+          "Description": "Traffic Server Metrics",
+          "Send": "GET /_metrics HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "ats_",
+              "Indicates": "Traffic Server metrics"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Tyk",
+      "DefaultPort": 8080,
+      "Probes": [
+        {
+          "Description": "Tyk Health",
+          "Send": "GET /health HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"status\":\"ok\"",
+              "Indicates": "Tyk health check"
+            }
+          ]
+        },
+        {
+          "Description": "Tyk APIs",
+          "Send": "GET /tyk/apis HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"apis\":",
+              "Indicates": "Tyk API list"
+            }
+          ]
+        },
+        {
+          "Description": "Tyk Metrics",
+          "Send": "GET /tyk/metrics HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "tyk_",
+              "Indicates": "Tyk metrics"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

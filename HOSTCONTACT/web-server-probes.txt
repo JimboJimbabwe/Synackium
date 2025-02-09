@@ -1,0 +1,112 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "NGINX",
+      "DefaultPort": 80,
+      "Probes": [
+        {
+          "Description": "NGINX Status Page",
+          "Send": "GET /nginx_status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Active connections:",
+              "Indicates": "NGINX status page"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX Server Header",
+          "Send": "GET / HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Server: nginx",
+              "Indicates": "NGINX server"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX Stub Status",
+          "Send": "GET /stub_status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "server accepts handled requests",
+              "Indicates": "NGINX stub status"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Apache HTTP Server",
+      "DefaultPort": 8080,
+      "Probes": [
+        {
+          "Description": "Apache Status Page",
+          "Send": "GET /server-status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Apache Server Status",
+              "Indicates": "Apache status page"
+            }
+          ]
+        },
+        {
+          "Description": "Apache Server Header",
+          "Send": "GET / HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Server: Apache",
+              "Indicates": "Apache server"
+            }
+          ]
+        },
+        {
+          "Description": "Apache Info Page",
+          "Send": "GET /server-info HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Apache Server Information",
+              "Indicates": "Apache info page"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Caddy",
+      "DefaultPort": 8082,
+      "Probes": [
+        {
+          "Description": "Caddy Status",
+          "Send": "GET /status HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"version\":",
+              "Indicates": "Caddy status page"
+            }
+          ]
+        },
+        {
+          "Description": "Caddy Metrics",
+          "Send": "GET /metrics HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "caddy_",
+              "Indicates": "Caddy metrics"
+            }
+          ]
+        },
+        {
+          "Description": "Caddy Admin",
+          "Send": "GET /admin/config HTTP/1.0\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "admin endpoint",
+              "Indicates": "Caddy admin interface"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
