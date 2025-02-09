@@ -18,3 +18,20 @@ Run 1NMAPSonic.py
 
 Utilize Software Versioning Commands from jsons like /HOSTCONTACT or in /HostOperations
 This will be deprecated.
+-------------------------------------------------------------------------------------------
+Above Meta Deprecated
+-------------------------------------------------------------------------------------------
+
+Run 1NMAPSonic.py 
+  Yield: IP, Maybe DNS Reso, Ports, Services
+
+Make Python script to lever ServiceProbe1.file, ServiceProbe2.file, serviceprobelow.file (all json, playa)
+Make Service probes for items in PopularRevProxies.json, reverseProxy1-2.json files
+
+Hypo(Run ServiceProbeScanner.py)
+  - Reads: IP, Ports, values from 
+      ServiceProbe1.file, ServiceProbe2.file, serviceprobelow.file
+      Service probes for items in PopularRevProxies.json, reverseProxy1-2.json
+  - Sends service probes in jsons read to services that match the Ports in the given JSON Item of the IP in iteration
+
+This will be deprecated. Soon
