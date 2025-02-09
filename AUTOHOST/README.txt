@@ -52,3 +52,13 @@ Basically the same script you made "2ServiceProbeAuto.py" IPBank.json /Path/To/E
 Visualize:
 Run DeepSeekGUI.py or ClaudeGUI.py
 
+-------------------------------------------------------------------------------------------
+Above Meta Deprecated
+-------------------------------------------------------------------------------------------
+
+Run 1NMAPSonic.py
+  Yield: IP, DNS Reso, Ports, Services
+
+Run 2ServiceProbeAuto.py IPBank.json /Path/To/Service/Probe/Directory
+
+Run 3EndpointScanner.py IPBank.json /Path/To/Services/And/Endpoints/Directory
