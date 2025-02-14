@@ -1,0 +1,47 @@
+# Using go-dork:
+
+# Exposed directories
+go-dork -q "ip:192.168.1.1 intitle:\"index of\"" -o directories.txt
+
+# File types
+go-dork -q "ip:192.168.1.1 filetype:pdf" -o pdfs.txt
+go-dork -q "ip:192.168.1.1 (ext:xml OR ext:conf OR ext:cnf OR ext:reg)" -o configs.txt
+
+# Connected devices
+go-dork -q "ip:192.168.1.1 (intext:\"printer\" OR intext:\"camera\")" -o devices.txt
+
+# Login pages
+go-dork -q "ip:192.168.1.1 inurl:login" -o logins.txt
+
+# Config files
+go-dork -q "ip:192.168.1.1 (intitle:\"configuration\" OR inurl:config)" -o exposed_configs.txt
+
+# CIDR range
+go-dork -q "ip:192.168.1.0/24 intext:login" -o network_logins.txt
+
+# Dashboard/admin/api
+go-dork -q "ip:192.168.1.1 (intitle:\"dashboard\" OR intext:\"admin\" OR inurl:app OR inurl:api)" -o admin_interfaces.txt
+
+# Using curl:
+
+# Exposed directories
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.1+intitle:%22index%20of%22" | grep -Eo "(http|https)://[^/\"]*" > directories.txt
+
+# File types
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.1+filetype:pdf" | grep -Eo "(http|https)://[^/\"]*" > pdfs.txt
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.1+(ext:xml+OR+ext:conf+OR+ext:cnf+OR+ext:reg)" | grep -Eo "(http|https)://[^/\"]*" > configs.txt
+
+# Connected devices
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.1+(intext:%22printer%22+OR+intext:%22camera%22)" | grep -Eo "(http|https)://[^/\"]*" > devices.txt
+
+# Login pages
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.1+inurl:login" | grep -Eo "(http|https)://[^/\"]*" > logins.txt
+
+# Config files
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.1+(intitle:%22configuration%22+OR+inurl:config)" | grep -Eo "(http|https)://[^/\"]*" > exposed_configs.txt
+
+# CIDR range
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.0/24+intext:login" | grep -Eo "(http|https)://[^/\"]*" > network_logins.txt
+
+# Dashboard/admin/api
+curl -A "Mozilla/5.0" "https://www.google.com/search?q=ip:192.168.1.1+(intitle:%22dashboard%22+OR+intext:%22admin%22+OR+inurl:app+OR+inurl:api)" | grep -Eo "(http|https)://[^/\"]*" > admin_interfaces.txt
