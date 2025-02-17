@@ -1,0 +1,58 @@
+Here's a suggested prompt:
+"I need you to create a detailed testing guide for ASVS requirements that I'll provide. For each requirement, generate a structured output that breaks down the testing methodology in detail. Here's how I'd like the information organized:
+Please structure each response like this:
+jsonCopy{
+  "asvs_id": "string",
+  "title": "string",
+  "test_objective": "string (detailed explanation of what we're testing)",
+  "security_rationale": "string (why this test matters for security)",
+  "test_steps": [
+    {
+      "step_number": "integer",
+      "automated": "boolean",
+      "tool_name": "string or null",
+      "technique": {
+        "description": "string (detailed explanation of the testing technique)",
+        "methodology": "string (how to perform the test)",
+        "command": "string or null (exact command if applicable)"
+      },
+      "validation": {
+        "pass_indicators": [
+          {
+            "description": "string",
+            "example": "string (example output)",
+            "explanation": "string (why this indicates a pass)"
+          }
+        ],
+        "fail_indicators": [
+          {
+            "description": "string",
+            "example": "string (example output)",
+            "explanation": "string (why this indicates a fail)"
+          }
+        ]
+      }
+    }
+  ],
+  "documentation_requirements": [
+    "string (what to document)",
+    "string (how to document it)"
+  ]
+}
+For each test step:
+
+Provide specific tool usage justification
+Include actual commands where applicable
+Detail what constitutes a pass/fail
+Give example outputs for both pass and fail scenarios
+Explain why certain indicators represent pass/fail conditions
+
+Example requirements will be provided in this format:
+V{chapter}.{section}.{requirement} - Requirement text
+Please ensure each response:
+
+Is technically accurate and practical
+Includes specific command syntax where tools are used
+Explains both the 'what' and 'why' of each test step
+Provides clear success/failure criteria
+Includes example outputs"
