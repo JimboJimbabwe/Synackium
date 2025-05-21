@@ -1,0 +1,582 @@
+{
+  "ServiceProbes": [
+    {
+      "Service": "NGINX",
+      "DefaultPort": 80,
+      "Probes": [
+        {
+          "Description": "NGINX Configuration",
+          "Send": "GET /nginx.conf HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "http {",
+              "Indicates": "Exposed NGINX configuration file"
+            },
+            {
+              "Pattern": "server {",
+              "Indicates": "Exposed NGINX configuration file"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX Sites Available",
+          "Send": "GET /sites-available/ HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Index of /sites-available",
+              "Indicates": "Directory listing for sites-available"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX SSL Files",
+          "Send": "GET /ssl/ HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Index of /ssl",
+              "Indicates": "Directory listing for SSL certificates"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX Log Files",
+          "Send": "GET /logs/access.log HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.*\"GET",
+              "Indicates": "Access log file exposure"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX Error Log",
+          "Send": "GET /error.log HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\[error\\]",
+              "Indicates": "Error log file exposure"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX SSL Key",
+          "Send": "GET /ssl.key HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "BEGIN PRIVATE KEY",
+              "Indicates": "Exposed SSL private key"
+            },
+            {
+              "Pattern": "BEGIN RSA PRIVATE KEY",
+              "Indicates": "Exposed RSA private key"
+            }
+          ]
+        },
+        {
+          "Description": "NGINX Status Page",
+          "Send": "GET /nginx_status HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Active connections:",
+              "Indicates": "NGINX status page"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Apache HTTP Server",
+      "DefaultPort": 8080,
+      "Probes": [
+        {
+          "Description": "Apache Configuration",
+          "Send": "GET /httpd.conf HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "ServerRoot",
+              "Indicates": "Exposed Apache configuration file"
+            }
+          ]
+        },
+        {
+          "Description": "Apache .htaccess",
+          "Send": "GET /.htaccess HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "RewriteRule",
+              "Indicates": "Exposed .htaccess file"
+            },
+            {
+              "Pattern": "AuthType",
+              "Indicates": "Exposed .htaccess file"
+            }
+          ]
+        },
+        {
+          "Description": "Apache .htpasswd",
+          "Send": "GET /.htpasswd HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "^[^:]+:\\$apr1\\$",
+              "Indicates": "Exposed password file"
+            }
+          ]
+        },
+        {
+          "Description": "Apache Server Status",
+          "Send": "GET /server-status HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Apache Server Status",
+              "Indicates": "Server status page"
+            }
+          ]
+        },
+        {
+          "Description": "Apache Server Info",
+          "Send": "GET /server-info HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Apache Server Information",
+              "Indicates": "Server information page"
+            }
+          ]
+        },
+        {
+          "Description": "Apache Access Log",
+          "Send": "GET /access.log HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.*\"GET",
+              "Indicates": "Access log file exposure"
+            }
+          ]
+        },
+        {
+          "Description": "Apache PHP Configuration",
+          "Send": "GET /php.ini HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "memory_limit",
+              "Indicates": "Exposed PHP configuration"
+            },
+            {
+              "Pattern": "display_errors",
+              "Indicates": "Exposed PHP configuration"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "HAProxy",
+      "DefaultPort": 8000,
+      "Probes": [
+        {
+          "Description": "HAProxy Configuration",
+          "Send": "GET /haproxy.cfg HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "frontend",
+              "Indicates": "Exposed HAProxy configuration"
+            },
+            {
+              "Pattern": "backend",
+              "Indicates": "Exposed HAProxy configuration"
+            }
+          ]
+        },
+        {
+          "Description": "HAProxy Stats",
+          "Send": "GET /haproxy?stats HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Statistics Report for HAProxy",
+              "Indicates": "HAProxy statistics page"
+            }
+          ]
+        },
+        {
+          "Description": "HAProxy Log",
+          "Send": "GET /haproxy.log HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "haproxy\\[[0-9]+\\]:",
+              "Indicates": "Exposed HAProxy log"
+            }
+          ]
+        },
+        {
+          "Description": "HAProxy Admin Socket",
+          "Send": "GET /admin.sock HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "socket",
+              "Indicates": "Potential HAProxy admin socket exposure"
+            }
+          ]
+        },
+        {
+          "Description": "HAProxy SSL Certificates",
+          "Send": "GET /certs/ HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Index of /certs",
+              "Indicates": "Directory listing for certificates"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Traefik",
+      "DefaultPort": 80,
+      "Probes": [
+        {
+          "Description": "Traefik Configuration",
+          "Send": "GET /traefik.yml HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "entryPoints:",
+              "Indicates": "Exposed Traefik configuration"
+            },
+            {
+              "Pattern": "providers:",
+              "Indicates": "Exposed Traefik configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Traefik TOML Configuration",
+          "Send": "GET /traefik.toml HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\[entryPoints\\]",
+              "Indicates": "Exposed Traefik TOML configuration"
+            },
+            {
+              "Pattern": "\\[providers\\]",
+              "Indicates": "Exposed Traefik TOML configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Traefik ACME JSON",
+          "Send": "GET /acme.json HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Certificate",
+              "Indicates": "Exposed ACME certificate data"
+            }
+          ]
+        },
+        {
+          "Description": "Traefik Dashboard",
+          "Send": "GET /dashboard HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Traefik Dashboard",
+              "Indicates": "Traefik Dashboard"
+            }
+          ]
+        },
+        {
+          "Description": "Traefik API",
+          "Send": "GET /api/rawdata HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "routers",
+              "Indicates": "Traefik API exposure"
+            }
+          ]
+        },
+        {
+          "Description": "Traefik LetsEncrypt",
+          "Send": "GET /letsencrypt/ HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Index of /letsencrypt",
+              "Indicates": "Directory listing for LetsEncrypt certificates"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Kong",
+      "DefaultPort": 8001,
+      "Probes": [
+        {
+          "Description": "Kong Configuration",
+          "Send": "GET /kong.conf HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "database",
+              "Indicates": "Exposed Kong configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Kong YAML Configuration",
+          "Send": "GET /kong.yml HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "services:",
+              "Indicates": "Exposed Kong YAML configuration"
+            },
+            {
+              "Pattern": "routes:",
+              "Indicates": "Exposed Kong YAML configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Kong Log",
+          "Send": "GET /error.log HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\[kong\\]",
+              "Indicates": "Exposed Kong log"
+            }
+          ]
+        },
+        {
+          "Description": "Kong Admin API",
+          "Send": "GET /status HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "database",
+              "Indicates": "Kong admin API status"
+            }
+          ]
+        },
+        {
+          "Description": "Kong Services",
+          "Send": "GET /services HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"data\":",
+              "Indicates": "Kong admin API services"
+            }
+          ]
+        },
+        {
+          "Description": "Kong Routes",
+          "Send": "GET /routes HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"data\":",
+              "Indicates": "Kong admin API routes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Envoy",
+      "DefaultPort": 9901,
+      "Probes": [
+        {
+          "Description": "Envoy Configuration",
+          "Send": "GET /envoy.yaml HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "static_resources:",
+              "Indicates": "Exposed Envoy configuration"
+            },
+            {
+              "Pattern": "clusters:",
+              "Indicates": "Exposed Envoy configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Envoy Config Dump",
+          "Send": "GET /config_dump HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "configs",
+              "Indicates": "Envoy admin interface config dump"
+            }
+          ]
+        },
+        {
+          "Description": "Envoy Certificates",
+          "Send": "GET /certs HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "certificates",
+              "Indicates": "Envoy admin interface certificates"
+            }
+          ]
+        },
+        {
+          "Description": "Envoy Clusters",
+          "Send": "GET /clusters HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "::STATIC",
+              "Indicates": "Envoy admin interface clusters"
+            }
+          ]
+        },
+        {
+          "Description": "Envoy Stats",
+          "Send": "GET /stats HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "server.live",
+              "Indicates": "Envoy admin interface stats"
+            }
+          ]
+        },
+        {
+          "Description": "Envoy Hot Restart",
+          "Send": "GET /hot_restart.version HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "version",
+              "Indicates": "Envoy hot restart version"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Caddy",
+      "DefaultPort": 8082,
+      "Probes": [
+        {
+          "Description": "Caddy Configuration",
+          "Send": "GET /Caddyfile HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "localhost",
+              "Indicates": "Exposed Caddyfile"
+            }
+          ]
+        },
+        {
+          "Description": "Caddy JSON Config",
+          "Send": "GET /caddy.json HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"apps\":",
+              "Indicates": "Exposed Caddy JSON configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Caddy Logs",
+          "Send": "GET /access.log HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.*\"GET",
+              "Indicates": "Access log file exposure"
+            }
+          ]
+        },
+        {
+          "Description": "Caddy Certificates",
+          "Send": "GET /certificates/ HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Index of /certificates",
+              "Indicates": "Directory listing for certificates"
+            }
+          ]
+        },
+        {
+          "Description": "Caddy Admin",
+          "Send": "GET /admin/config HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "\"apps\":",
+              "Indicates": "Caddy admin API configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Caddy ACME",
+          "Send": "GET /acme/ HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "Index of /acme",
+              "Indicates": "Directory listing for ACME"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Service": "Varnish",
+      "DefaultPort": 8081,
+      "Probes": [
+        {
+          "Description": "Varnish Configuration",
+          "Send": "GET /default.vcl HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "vcl 4\\.0",
+              "Indicates": "Exposed Varnish configuration"
+            },
+            {
+              "Pattern": "backend default",
+              "Indicates": "Exposed Varnish configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Varnish Secret",
+          "Send": "GET /secret HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "[a-f0-9]{32,}",
+              "Indicates": "Exposed Varnish secret"
+            }
+          ]
+        },
+        {
+          "Description": "Varnish Stats",
+          "Send": "GET /varnishstat HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "MAIN\\.uptime",
+              "Indicates": "Varnish statistics"
+            }
+          ]
+        },
+        {
+          "Description": "Varnish Admin Socket",
+          "Send": "GET /admin_socket HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "socket",
+              "Indicates": "Potential Varnish admin socket exposure"
+            }
+          ]
+        },
+        {
+          "Description": "Varnish Backend Config",
+          "Send": "GET /backend.conf HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "backend",
+              "Indicates": "Exposed Varnish backend configuration"
+            }
+          ]
+        },
+        {
+          "Description": "Varnish ACL Config",
+          "Send": "GET /acl.conf HTTP/1.0\r\nHost: localhost\r\n\r\n",
+          "ExpectedResponses": [
+            {
+              "Pattern": "acl",
+              "Indicates": "Exposed Varnish ACL configuration"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
